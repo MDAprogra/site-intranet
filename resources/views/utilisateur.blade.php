@@ -1,3 +1,4 @@
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-200 leading-tight">
@@ -12,7 +13,7 @@
                     <h1 class="font-bold text-xl underline">{{ __("Liste des utilisateurs") }}</h1>
                 </div>
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto" x-data="{ open: false, selectedUserId: null }">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                             <tr>
@@ -29,7 +30,7 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                             @foreach($users as $user)
-                                <tr>
+                                <tr @click="open = !open; selectedUserId = {{ $user->id }}" class="cursor-pointer hover:bg-gray-100">
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm text-gray-900">{{ $user->name }}</div>
                                     </td>
@@ -43,6 +44,12 @@
                             @endforeach
                             </tbody>
                         </table>
+
+                        <div x-show="open" class="mt-4 p-4 bg-gray-100 rounded">
+                            <button class="bg-green-500 hover:bg-green-700 text-gray-900 font-bold py-2 px-4 rounded">Modifier</button>
+                            <button class="bg-yellow-500 hover:bg-yellow-700 text-gray-900 font-bold py-2 px-4 rounded">Supprimer</button>
+                            <button class="bg-purple-500 hover:bg-purple-700 text-gray-900 font-bold py-2 px-4 rounded">Accès aux indicateurs</button>
+                        </div>
                     </div>
                 </div>
             </div>
