@@ -27,53 +27,53 @@
         {{-- Navigation --}}
         <nav class="flex items-center gap-4">
             <a href="https://interfas.myyellowboxcrm.com/" target="_blank"
-               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200">
+               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200">
                 YellowboxCRM
             </a>
 
             <a href="http://192.168.1.58:8180/webquartz/" target="_blank"
-               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200">
+               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200">
                 Horoquartz
             </a>
 
             {{-- Menu déroulant Transporteurs --}}
             <div class="relative group" id="transportersMenu">
-                <button class="inline-flex items-center px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200">
+                <button class="inline-flex items-center px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200">
                     Transporteurs
                     <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
                 <div id="transportersDropdown" class="absolute hidden group-hover:block bg-white border border-gray-200 rounded-md shadow-lg mt-2 w-48">
-                    <a href="https://www.tnt.fr/public/login/index.do" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">TNT</a>
-                    <a href="https://www.dbschenker.com/fr-fr" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">DB SCHENKER</a>
-                    <a href="https://connect.gefco.net/psc-portal/login.html#LogIn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">GEFCO</a>
-                    <a href="http://www.dpd.fr/trace" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">DPD</a>
-                    <a href="http://chargeurweb.com/tracking" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">VARILLON</a>
+                    <a href="https://www.tnt.fr/public/login/index.do" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">TNT</a>
+                    <a href="https://www.dbschenker.com/fr-fr" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">DB SCHENKER</a>
+                    <a href="https://connect.gefco.net/psc-portal/login.html#LogIn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">GEFCO</a>
+                    <a href="http://www.dpd.fr/trace" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">DPD</a>
+                    <a href="http://chargeurweb.com/tracking" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">VARILLON</a>
                 </div>
             </div>
             <a href="https://eprint.interfas.fr/" target="_blank"
-               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200">
+               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200">
                 e-print
             </a>
             <a href="https://www.esupply.valeo.com/" target="_blank"
-               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200">
+               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200">
                 Valeo
             </a>
             <a href="https://auscp.aperam.com/oauth2/authorize?response_type=code&client_id=c2e184e7-af79-420f-90d6-c3bfa6b95449" target="_blank"
-               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200">
+               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200">
                 Aperam
             </a>
             <a href="https://armoires.zeendoc.com/interfas/" target="_blank"
-               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200">
+               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200">
                 Zeendoc
             </a>
             <a href="https://shop.bluestoreinc.com/fr" target="_blank"
-               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200">
+               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200">
                 Bluestar
             </a>
             <a href="https://client.interfas.fr/proxiserve/" target="_blank"
-               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200">
+               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200">
                 Proxyserve
             </a>
         </nav>
@@ -96,12 +96,48 @@
         @endif
     </div>
 </header>
-<main class="mt-20 max-w-7xl w-full">
+<main class="container mx-auto px-4 py-8">
+    <section class="mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Charte Informatique d'INTERFAS</h2>
 
+        <p class="mb-4">
+            La présente charte définit les règles d'utilisation des ressources informatiques au sein d'INTERFAS,
+            rappelant les responsabilités de chaque utilisateur et soulignant le cadre juridique de ces activités.
+        </p>
+
+        <h3 class="text-xl font-semibold mb-2">Utilisation Responsable des Ressources</h3>
+        <ul class="list-disc list-inside mb-4">
+            <li>Usage strictement professionnel des ressources partagées.</li>
+            <li>Responsabilité individuelle pour l'utilisation des comptes et matériels.</li>
+            <li>Confidentialité absolue des mots de passe.</li>
+            <li>Responsabilité des accès aux informations partagées avec des tiers.</li>
+            <li>Interdiction d'utiliser des comptes non autorisés ou de tenter de déchiffrer des mots de passe.</li>
+            <li>Signalement immédiat de toute violation de sécurité.</li>
+            <li>Interdiction d'installer des logiciels sans autorisation.</li>
+            <li>Respect de la confidentialité des fichiers d'autrui et des communications.</li>
+            <li>Obligation de réserve sur les informations internes à INTERFAS.</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold mb-2">Sécurité et Intégrité</h3>
+        <p class="mb-4">
+            Tout utilisateur est tenu de respecter l'intégrité des systèmes informatiques et de signaler toute anomalie.
+            L'installation de logiciels non autorisés et la tentative d'accès à des informations confidentielles sont strictement interdites.
+        </p>
+
+        <h3 class="text-xl font-semibold mb-2">Mots de Passe et Accès</h3>
+        <p class="mb-4">
+            La sécurité de vos mots de passe est cruciale. Ne les partagez jamais, surtout par téléphone.
+            L'accès à des ressources informatiques sans autorisation est formellement interdit.
+        </p>
+
+        <p class="mb-4 text-red-600 font-bold">
+            Le non-respect de cette charte peut entraîner des sanctions administratives et pénales.
+        </p>
+    </section>
 </main>
-@if (Route::has('login'))
-    <div class="h-14.5 hidden lg:block"></div>
-@endif
+<footer class="w-full bg-[#a6b9b9] text-[#354f44] text-center p-4">
+    <p>&copy; {{ date('Y') }} INTERFAS. Tous droits réservés.</p>
+</footer>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const transportersMenu = document.getElementById('transportersMenu');
