@@ -233,8 +233,8 @@
             </div>
             <a href="https://eprint.interfas.fr/" target="_blank"
                class="inline-flex items-center px-4 py-2  rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
-               aria-label="e-print">
-                e-print
+               aria-label="E-print">
+                E-print
             </a>
             <a href="https://www.esupply.valeo.com/" target="_blank"
                class="inline-flex items-center px-4 py-2  rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
