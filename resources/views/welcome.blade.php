@@ -312,7 +312,7 @@
                     </div>
                 @else
                     <a href="{{ route('login') }}"
-                       class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200"
+                       class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                        aria-label="Se connecter">
                         Se connecter
                     </a>
