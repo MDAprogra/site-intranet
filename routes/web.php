@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IndicateurController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -11,6 +12,10 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/indicateur', [IndicateurController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('indicateur');
 
 Route::get('/utilisateur', [UserController::class, 'index'])
     ->middleware(['auth', 'verified'])
