@@ -196,21 +196,20 @@
         <!-- Navigation -->
         <nav class="flex items-center gap-4" aria-label="Main Navigation">
             <a href="https://interfas.myyellowboxcrm.com/" target="_blank"
-               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200"
+               class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                aria-label="YellowboxCRM">
                 YellowboxCRM
             </a>
 
             <a href="http://192.168.1.58:8180/webquartz/" target="_blank"
-               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200"
+               class="inline-flex items-center px-4 py-2  rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                aria-label="Horoquartz">
                 Horoquartz
             </a>
 
-            <!-- Menu déroulant Transporteurs -->
             <div class="relative group" id="transportersMenu">
                 <button
-                    class="inline-flex items-center px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200"
+                    class="inline-flex items-center px-4 py-2  rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                     aria-haspopup="true" aria-expanded="false">
                     Transporteurs
                     <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -233,33 +232,33 @@
                 </div>
             </div>
             <a href="https://eprint.interfas.fr/" target="_blank"
-               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200"
+               class="inline-flex items-center px-4 py-2  rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                aria-label="e-print">
                 e-print
             </a>
             <a href="https://www.esupply.valeo.com/" target="_blank"
-               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200"
+               class="inline-flex items-center px-4 py-2  rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                aria-label="Valeo">
                 Valeo
             </a>
             <a href="https://auscp.aperam.com/oauth2/authorize?response_type=code&client_id=c2e184e7-af79-420f-90d6-c3bfa6b95449"
                target="_blank"
-               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200"
+               class="inline-flex items-center px-4 py-2  rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                aria-label="Aperam">
                 Aperam
             </a>
             <a href="https://armoires.zeendoc.com/interfas/" target="_blank"
-               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200"
+               class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                aria-label="Zeendoc">
                 Zeendoc
             </a>
             <a href="https://shop.bluestoreinc.com/fr" target="_blank"
-               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200"
+               class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                aria-label="Bluestar">
                 Bluestar
             </a>
             <a href="https://client.interfas.fr/proxiserve/" target="_blank"
-               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200"
+               class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                aria-label="Proxyserve">
                 Proxyserve
             </a>
@@ -270,43 +269,41 @@
             <nav class="flex items-center justify-end gap-4">
                 @auth
                     <a href="{{ url('/dashboard') }}"
-                       class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200"
+                       class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                        aria-label="Tableau de bord">
                         Indicateurs
                     </a>
 
                     <div class="hidden sm:flex sm:items-center sm:ms-6">
-                        <x-dropdown align="right" width="60">
+                        <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
                                 <button
-                                    class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200">
-                                    <div class="flex items-center">
-                                        <div>{{ Auth::user()->name }}</div>
-                                        <div class="ms-1">
-                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                                 viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                      clip-rule="evenodd"/>
-                                            </svg>
-                                        </div>
+                                    class="flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <div>{{ Auth::user()->name }}</div>
+                                    <div class="ms-1">
+                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                             viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd"
+                                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                  clip-rule="evenodd"/>
+                                        </svg>
                                     </div>
                                 </button>
                             </x-slot>
 
                             <x-slot name="content">
                                 <x-dropdown-link :href="route('profile.edit')"
-                                                 class="block w-full px-5 py-1.5 border-none text-left text-[#354f44] hover:bg-[#19140035]  rounded-md text-sm leading-normal transition-colors duration-200">
+                                                 class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
                                     {{ __('Profil') }}
                                 </x-dropdown-link>
 
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-
                                     <x-dropdown-link :href="route('logout')"
-                                                     onclick="event.preventDefault();
-                                 this.closest('form').submit();"
-                                                     class="block w-full px-5 py-1.5 border-none text-left text-[#354f44] hover:bg-[#19140035]  rounded-md text-sm leading-normal transition-colors duration-200">
+                                                     onclick="event.preventDefault(); this.closest('form').submit();"
+                                                     class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
                                         {{ __('Déconnexion') }}
                                     </x-dropdown-link>
                                 </form>
