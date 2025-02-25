@@ -209,19 +209,27 @@
 
             <!-- Menu déroulant Transporteurs -->
             <div class="relative group" id="transportersMenu">
-                <button class="inline-flex items-center px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200"
-                        aria-haspopup="true" aria-expanded="false">
+                <button
+                    class="inline-flex items-center px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200"
+                    aria-haspopup="true" aria-expanded="false">
                     Transporteurs
-                    <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div id="transportersDropdown" class="absolute hidden group-hover:block bg-white border border-gray-200 rounded-md shadow-lg mt-2 w-48">
-                    <a href="https://www.tnt.fr/public/login/index.do" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">TNT</a>
-                    <a href="https://www.dbschenker.com/fr-fr" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">DB SCHENKER</a>
-                    <a href="https://connect.gefco.net/psc-portal/login.html#LogIn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">GEFCO</a>
-                    <a href="http://www.dpd.fr/trace" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">DPD</a>
-                    <a href="http://chargeurweb.com/tracking" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">VARILLON</a>
+                <div id="transportersDropdown"
+                     class="absolute hidden group-hover:block bg-white border border-gray-200 rounded-md shadow-lg mt-2 w-48">
+                    <a href="https://www.tnt.fr/public/login/index.do"
+                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">TNT</a>
+                    <a href="https://www.dbschenker.com/fr-fr"
+                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">DB SCHENKER</a>
+                    <a href="https://connect.gefco.net/psc-portal/login.html#LogIn"
+                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">GEFCO</a>
+                    <a href="http://www.dpd.fr/trace"
+                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">DPD</a>
+                    <a href="http://chargeurweb.com/tracking"
+                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">VARILLON</a>
                 </div>
             </div>
             <a href="https://eprint.interfas.fr/" target="_blank"
@@ -234,7 +242,8 @@
                aria-label="Valeo">
                 Valeo
             </a>
-            <a href="https://auscp.aperam.com/oauth2/authorize?response_type=code&client_id=c2e184e7-af79-420f-90d6-c3bfa6b95449" target="_blank"
+            <a href="https://auscp.aperam.com/oauth2/authorize?response_type=code&client_id=c2e184e7-af79-420f-90d6-c3bfa6b95449"
+               target="_blank"
                class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200"
                aria-label="Aperam">
                 Aperam
@@ -267,21 +276,27 @@
                     </a>
 
                     <div class="hidden sm:flex sm:items-center sm:ms-6">
-                        <x-dropdown align="right" width="48">
+                        <x-dropdown align="right" width="60">
                             <x-slot name="trigger">
-                                <button class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200">
-                                    <div>{{ Auth::user()->name }}</div>
-
-                                    <div class="ms-1">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                        </svg>
+                                <button
+                                    class="inline-flex px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200">
+                                    <div class="flex items-center">
+                                        <div>{{ Auth::user()->name }}</div>
+                                        <div class="ms-1">
+                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                 viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd"
+                                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                      clip-rule="evenodd"/>
+                                            </svg>
+                                        </div>
                                     </div>
                                 </button>
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('profile.edit')" class="block w-full px-5 py-1.5 border-none text-left text-[#354f44] hover:bg-[#19140035] hover:text-white rounded-md text-sm leading-normal transition-colors duration-200">
+                                <x-dropdown-link :href="route('profile.edit')"
+                                                 class="block w-full px-5 py-1.5 border-none text-left text-[#354f44] hover:bg-[#19140035] hover:text-white rounded-md text-sm leading-normal transition-colors duration-200">
                                     {{ __('Profile') }}
                                 </x-dropdown-link>
 
@@ -290,7 +305,8 @@
 
                                     <x-dropdown-link :href="route('logout')"
                                                      onclick="event.preventDefault();
-                this.closest('form').submit();" class="block w-full px-5 py-1.5 border-none text-left text-[#354f44] hover:bg-[#19140035] hover:text-white rounded-md text-sm leading-normal transition-colors duration-200">
+                                                     this.closest('form').submit();"
+                                                     class="block w-full px-5 py-1.5 border-none text-left text-[#354f44] hover:bg-[#19140035] hover:text-white rounded-md text-sm leading-normal transition-colors duration-200">
                                         {{ __('Log Out') }}
                                     </x-dropdown-link>
                                 </form>
@@ -333,7 +349,8 @@
         <h3 class="text-xl font-semibold mb-2">Sécurité et Intégrité</h3>
         <p class="mb-4">
             Tout utilisateur est tenu de respecter l'intégrité des systèmes informatiques et de signaler toute anomalie.
-            L'installation de logiciels non autorisés et la tentative d'accès à des informations confidentielles sont strictement interdites.
+            L'installation de logiciels non autorisés et la tentative d'accès à des informations confidentielles sont
+            strictement interdites.
         </p>
 
         <h3 class="text-xl font-semibold mb-2">Mots de Passe et Accès</h3>
@@ -351,18 +368,18 @@
     <p>&copy; {{ date('Y') }} INTERFAS. Tous droits réservés.</p>
 </footer>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const transportersMenu = document.getElementById('transportersMenu');
         const transportersDropdown = document.getElementById('transportersDropdown');
         let hideTimeout;
 
-        transportersMenu.addEventListener('mouseenter', function() {
+        transportersMenu.addEventListener('mouseenter', function () {
             clearTimeout(hideTimeout); // Annule un délai précédent si le menu est ré-survolé
             transportersDropdown.classList.remove('hidden'); // Affiche le menu
         });
 
-        transportersMenu.addEventListener('mouseleave', function() {
-            hideTimeout = setTimeout(function() {
+        transportersMenu.addEventListener('mouseleave', function () {
+            hideTimeout = setTimeout(function () {
                 transportersDropdown.classList.add('hidden'); // Cache le menu après 0.5 secondes
             }, 50); // 500 millisecondes = 0.5 secondes
         });
