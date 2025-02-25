@@ -279,7 +279,7 @@
                         <x-dropdown align="right" width="60">
                             <x-slot name="trigger">
                                 <button
-                                    class="inline-flex px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200">
+                                    class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-md text-sm leading-normal transition-colors duration-200">
                                     <div class="flex items-center">
                                         <div>{{ Auth::user()->name }}</div>
                                         <div class="ms-1">
@@ -296,8 +296,8 @@
 
                             <x-slot name="content">
                                 <x-dropdown-link :href="route('profile.edit')"
-                                                 class="block w-full px-5 py-1.5 border-none text-left text-[#354f44] hover:bg-[#19140035] hover:text-white rounded-md text-sm leading-normal transition-colors duration-200">
-                                    {{ __('Profile') }}
+                                                 class="block w-full px-5 py-1.5 border-none text-left text-[#354f44] hover:bg-[#19140035]  rounded-md text-sm leading-normal transition-colors duration-200">
+                                    {{ __('Profil') }}
                                 </x-dropdown-link>
 
                                 <form method="POST" action="{{ route('logout') }}">
@@ -305,9 +305,9 @@
 
                                     <x-dropdown-link :href="route('logout')"
                                                      onclick="event.preventDefault();
-                                                     this.closest('form').submit();"
-                                                     class="block w-full px-5 py-1.5 border-none text-left text-[#354f44] hover:bg-[#19140035] hover:text-white rounded-md text-sm leading-normal transition-colors duration-200">
-                                        {{ __('Log Out') }}
+                                 this.closest('form').submit();"
+                                                     class="block w-full px-5 py-1.5 border-none text-left text-[#354f44] hover:bg-[#19140035]  rounded-md text-sm leading-normal transition-colors duration-200">
+                                        {{ __('Déconnexion') }}
                                     </x-dropdown-link>
                                 </form>
                             </x-slot>
