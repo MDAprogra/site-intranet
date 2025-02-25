@@ -97,65 +97,12 @@
     </div>
 </header>
 <main class="mt-20 max-w-7xl w-full">
-{{--    <div class="container mx-auto px-4">--}}
-{{--        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center"> Liens utiles</h2>--}}
-{{--        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">--}}
-{{--            <a href="https://eprint.interfas.fr/" target="_blank"--}}
-{{--               class="flex items-center justify-center p-4 border rounded-md shadow-md transition-colors duration-300 hover:shadow-lg hover:bg-[#1914001a]">--}}
-{{--                ️ 🖨️ e-print--}}
-{{--            </a>--}}
-{{--            <a href="https://www.esupply.valeo.com/" target="_blank"--}}
-{{--               class="flex items-center justify-center p-4 border rounded-md shadow-md transition-colors duration-300 hover:shadow-lg hover:bg-[#1914001a]">--}}
-{{--                🚗 Valeo--}}
-{{--            </a>--}}
-{{--            <a href="https://auscp.aperam.com/oauth2/authorize?response_type=code&client_id=c2e184e7-af79-420f-90d6-c3bfa6b95449"--}}
-{{--               target="_blank"--}}
-{{--               class="flex items-center justify-center p-4 border rounded-md shadow-md transition-colors duration-300 hover:shadow-lg hover:bg-[#1914001a]">--}}
-{{--                🏭 Aperam--}}
-{{--            </a>--}}
-{{--            <a href="https://armoires.zeendoc.com/interfas/" target="_blank"--}}
-{{--               class="flex items-center justify-center p-4 border rounded-md shadow-md transition-colors duration-300 hover:shadow-lg hover:bg-[#1914001a]">--}}
-{{--                📂 Zeendoc--}}
-{{--            </a>--}}
-{{--            <a href="https://shop.bluestoreinc.com/fr" target="_blank"--}}
-{{--               class="flex items-center justify-center p-4 border rounded-md shadow-md transition-colors duration-300 hover:shadow-lg hover:bg-[#1914001a]">--}}
-{{--                ️ 🛍️ BlueStar--}}
-{{--            </a>--}}
-{{--            <a href="https://client.interfas.fr/proxiserve/" target="_blank"--}}
-{{--               class="flex items-center justify-center p-4 border rounded-md shadow-md transition-colors duration-300 hover:shadow-lg hover:bg-[#1914001a]">--}}
-{{--                🔧 Proxiserve--}}
-{{--            </a>--}}
-{{--        </div>--}}
-{{--        <div id="preview-container"--}}
-{{--             class="fixed hidden p-2 bg-white border rounded shadow-lg z-50">--}}
-{{--            <img id="preview-image" class="w-64 h-40 object-cover rounded" alt="Aperçu du site"/>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+
 </main>
 @if (Route::has('login'))
     <div class="h-14.5 hidden lg:block"></div>
 @endif
 <script>
-    function showPreview(event, imageUrl) {
-        const previewContainer = document.getElementById('preview-container');
-        const previewImage = document.getElementById('preview-image');
-        previewImage.src = imageUrl;
-        previewContainer.style.left = `${event.clientX + 20}px`;
-        previewContainer.style.top = `${event.clientY + 20}px`;
-        previewContainer.style.display = 'block';
-    }
-
-    function hidePreview() {
-        document.getElementById('preview-container').style.display = 'none';
-    }
-
-    document.querySelectorAll('.flex.items-center.justify-center.p-4.border.rounded-md.shadow-md').forEach(link => {
-        link.addEventListener('mouseenter', (event) => {
-            showPreview(event, `https://api.screenshotmachine.com/?key=484fb6&url=${encodeURIComponent(link.href)}&dimension=1024x768`);
-        });
-        link.addEventListener('mouseleave', hidePreview);
-    });
-
     document.addEventListener('DOMContentLoaded', function() {
         const transportersMenu = document.getElementById('transportersMenu');
         const transportersDropdown = document.getElementById('transportersDropdown');
