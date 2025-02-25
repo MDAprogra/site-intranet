@@ -20,29 +20,158 @@
     @endif
 </head>
 <body class="bg-[#a6b9b9] text-[#354f44] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-<header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden absolute top-0 right-0 p-4">
-    @if (Route::has('login'))
-        <nav class="flex items-center justify-end gap-4">
-            @auth
-                <a
-                    href="{{ url('/dashboard') }}"
-                    class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal"
-                >
-                    Tableau de bord
-                </a>
-            @else
-                <a
-                    href="{{ route('login') }}"
-                    class="inline-block px-5 py-1.5 text-[#354f44] border border-transparent hover:bg-[#19140035] hover:border-[#19140035] hover:font-medium rounded-sm text-sm leading-normal"
-                >
-                    Se connecter
-                </a>
-            @endauth
+<header class="w-screen text-sm absolute top-0 right-0 p-4 bg-[#a6b9b9] shadow-md">
+    <div class="flex items-center justify-between">
+        <h1 class="text-[#354f44] font-medium text-xl">Intranet</h1>
+
+        {{-- Navigation --}}
+        <nav class="flex items-center gap-4">
+            <a href="https://interfas.myyellowboxcrm.com/" target="_blank"
+               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200">
+                YellowboxCRM
+            </a>
+
+            <a href="http://192.168.1.58:8180/webquartz/" target="_blank"
+               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200">
+                Horoquartz
+            </a>
+
+            {{-- Menu déroulant Transporteurs --}}
+            <div class="relative group" id="transportersMenu">
+                <button class="inline-flex items-center px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200">
+                    Transporteurs
+                    <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div id="transportersDropdown" class="absolute hidden group-hover:block bg-white border border-gray-200 rounded-md shadow-lg mt-2 w-48">
+                    <a href="https://www.tnt.fr/public/login/index.do" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">TNT</a>
+                    <a href="https://www.dbschenker.com/fr-fr" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">DB SCHENKER</a>
+                    <a href="https://connect.gefco.net/psc-portal/login.html#LogIn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">GEFCO</a>
+                    <a href="http://www.dpd.fr/trace" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">DPD</a>
+                    <a href="http://chargeurweb.com/tracking" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">VARILLON</a>
+                </div>
+            </div>
+            <a href="https://eprint.interfas.fr/" target="_blank"
+               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200">
+                e-print
+            </a>
+            <a href="https://www.esupply.valeo.com/" target="_blank"
+               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200">
+                Valeo
+            </a>
+            <a href="https://auscp.aperam.com/oauth2/authorize?response_type=code&client_id=c2e184e7-af79-420f-90d6-c3bfa6b95449" target="_blank"
+               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200">
+                Aperam
+            </a>
+            <a href="https://armoires.zeendoc.com/interfas/" target="_blank"
+               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200">
+                Zeendoc
+            </a>
+            <a href="https://shop.bluestoreinc.com/fr" target="_blank"
+               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200">
+                Bluestar
+            </a>
+            <a href="https://client.interfas.fr/proxiserve/" target="_blank"
+               class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200">
+                Proxyserve
+            </a>
         </nav>
-    @endif
+
+        {{-- Connexion --}}
+        @if (Route::has('login'))
+            <nav class="flex items-center justify-end gap-4">
+                @auth
+                    <a href="{{ url('/dashboard') }}"
+                       class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200">
+                        Tableau de bord
+                    </a>
+                @else
+                    <a href="{{ route('login') }}"
+                       class="inline-block px-5 py-1.5 text-[#354f44] border border-transparent hover:bg-[#19140035] hover:border-[#19140035] hover:font-medium rounded-sm text-sm leading-normal transition-colors duration-200">
+                        Se connecter
+                    </a>
+                @endauth
+            </nav>
+        @endif
+    </div>
 </header>
+<main class="mt-20 max-w-7xl w-full">
+{{--    <div class="container mx-auto px-4">--}}
+{{--        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center"> Liens utiles</h2>--}}
+{{--        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">--}}
+{{--            <a href="https://eprint.interfas.fr/" target="_blank"--}}
+{{--               class="flex items-center justify-center p-4 border rounded-md shadow-md transition-colors duration-300 hover:shadow-lg hover:bg-[#1914001a]">--}}
+{{--                ️ 🖨️ e-print--}}
+{{--            </a>--}}
+{{--            <a href="https://www.esupply.valeo.com/" target="_blank"--}}
+{{--               class="flex items-center justify-center p-4 border rounded-md shadow-md transition-colors duration-300 hover:shadow-lg hover:bg-[#1914001a]">--}}
+{{--                🚗 Valeo--}}
+{{--            </a>--}}
+{{--            <a href="https://auscp.aperam.com/oauth2/authorize?response_type=code&client_id=c2e184e7-af79-420f-90d6-c3bfa6b95449"--}}
+{{--               target="_blank"--}}
+{{--               class="flex items-center justify-center p-4 border rounded-md shadow-md transition-colors duration-300 hover:shadow-lg hover:bg-[#1914001a]">--}}
+{{--                🏭 Aperam--}}
+{{--            </a>--}}
+{{--            <a href="https://armoires.zeendoc.com/interfas/" target="_blank"--}}
+{{--               class="flex items-center justify-center p-4 border rounded-md shadow-md transition-colors duration-300 hover:shadow-lg hover:bg-[#1914001a]">--}}
+{{--                📂 Zeendoc--}}
+{{--            </a>--}}
+{{--            <a href="https://shop.bluestoreinc.com/fr" target="_blank"--}}
+{{--               class="flex items-center justify-center p-4 border rounded-md shadow-md transition-colors duration-300 hover:shadow-lg hover:bg-[#1914001a]">--}}
+{{--                ️ 🛍️ BlueStar--}}
+{{--            </a>--}}
+{{--            <a href="https://client.interfas.fr/proxiserve/" target="_blank"--}}
+{{--               class="flex items-center justify-center p-4 border rounded-md shadow-md transition-colors duration-300 hover:shadow-lg hover:bg-[#1914001a]">--}}
+{{--                🔧 Proxiserve--}}
+{{--            </a>--}}
+{{--        </div>--}}
+{{--        <div id="preview-container"--}}
+{{--             class="fixed hidden p-2 bg-white border rounded shadow-lg z-50">--}}
+{{--            <img id="preview-image" class="w-64 h-40 object-cover rounded" alt="Aperçu du site"/>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+</main>
 @if (Route::has('login'))
     <div class="h-14.5 hidden lg:block"></div>
 @endif
+<script>
+    function showPreview(event, imageUrl) {
+        const previewContainer = document.getElementById('preview-container');
+        const previewImage = document.getElementById('preview-image');
+        previewImage.src = imageUrl;
+        previewContainer.style.left = `${event.clientX + 20}px`;
+        previewContainer.style.top = `${event.clientY + 20}px`;
+        previewContainer.style.display = 'block';
+    }
+
+    function hidePreview() {
+        document.getElementById('preview-container').style.display = 'none';
+    }
+
+    document.querySelectorAll('.flex.items-center.justify-center.p-4.border.rounded-md.shadow-md').forEach(link => {
+        link.addEventListener('mouseenter', (event) => {
+            showPreview(event, `https://api.screenshotmachine.com/?key=484fb6&url=${encodeURIComponent(link.href)}&dimension=1024x768`);
+        });
+        link.addEventListener('mouseleave', hidePreview);
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const transportersMenu = document.getElementById('transportersMenu');
+        const transportersDropdown = document.getElementById('transportersDropdown');
+        let hideTimeout;
+
+        transportersMenu.addEventListener('mouseenter', function() {
+            clearTimeout(hideTimeout); // Annule un délai précédent si le menu est ré-survolé
+            transportersDropdown.classList.remove('hidden'); // Affiche le menu
+        });
+
+        transportersMenu.addEventListener('mouseleave', function() {
+            hideTimeout = setTimeout(function() {
+                transportersDropdown.classList.add('hidden'); // Cache le menu après 0.5 secondes
+            }, 50); // 500 millisecondes = 0.5 secondes
+        });
+    });
+</script>
 </body>
 </html>
