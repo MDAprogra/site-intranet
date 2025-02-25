@@ -20,7 +20,7 @@
     @endif
 </head>
 <body class="bg-[#a6b9b9] text-[#354f44] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-<header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
+<header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden absolute top-0 right-0 p-4">
     @if (Route::has('login'))
         <nav class="flex items-center justify-end gap-4">
             @auth
