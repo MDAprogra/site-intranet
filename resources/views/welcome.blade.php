@@ -268,7 +268,7 @@
         @if (Route::has('login'))
             <nav class="flex items-center justify-end gap-4">
                 @auth
-                    <a href="{{ url('/dashboard') }}"
+                    <a href="{{ url('/indicateur') }}"
                        class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                        aria-label="Tableau de bord">
                         Indicateurs
