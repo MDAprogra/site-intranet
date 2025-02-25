@@ -263,7 +263,7 @@
                     <a href="{{ url('/dashboard') }}"
                        class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] hover:bg-[#19140035] hover:font-medium border text-[#354f44] rounded-sm text-sm leading-normal transition-colors duration-200"
                        aria-label="Tableau de bord">
-                        Tableau de bord
+                        Indicateurs
                     </a>
                 @else
                     <a href="{{ route('login') }}"
