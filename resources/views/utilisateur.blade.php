@@ -13,6 +13,13 @@
                     <h1 class="font-bold text-xl underline">{{ __("Liste des utilisateurs") }}</h1>
                 </div>
                 <div class="p-6 bg-white border-b border-gray-200">
+                    <div class="flex justify-between items-center mb-4">
+                        <a href="{{ route('create-user') }}">
+                            <button class="bg-[#a6b9a8] hover:bg-[#607066] text-white font-bold py-2 px-4 rounded">
+                                Créer un utilisateur
+                            </button>
+                        </a>
+                    </div>
                     <div class="overflow-x-auto" x-data="{ open: false, selectedUserId: null, selectedUserRole: null }">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">

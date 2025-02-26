@@ -3,7 +3,8 @@
 use App\Http\Controllers\AccesIndicateursController;
 use App\Http\Controllers\IndicateurController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\User\CreateUserController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,6 +29,14 @@ Route::get('/indicateur', [IndicateurController::class, 'index'])
 Route::get('/utilisateur', [UserController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('utilisateur');
+
+Route::get('/create-user', [CreateUserController::class, 'create'])
+    ->middleware(['auth', 'verified', 'role:admin'])
+    ->name('create-user');
+
+Route::post('/create-user', [CreateUserController::class, 'store'])
+    ->middleware(['auth', 'verified', 'role:admin']);
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
