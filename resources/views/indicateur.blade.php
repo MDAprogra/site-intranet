@@ -6,18 +6,10 @@
     </x-slot>
 
     <div class="py-12">
-        <div id="formulaireAjout" style="display: none;">
-            <form>
-                <label for="nomIndicateur">Nom de l'indicateur :</label>
-                <input type="text" id="nomIndicateur" name="nomIndicateur">
-                <button type="submit">Enregistrer</button>
-            </form>
-        </div>
         <div class="max-w-7xl mx-auto sm:px-4 lg:px-4">
             <div class="bg-gray-200 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <h1 class="font-bold text-xl underline">{{ __("Vos indicateurs disponibles") }}</h1>
-                    <a href="#" id="ajouterIndicateur">Ajouter un indicateur</a>
                 </div>
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="overflow-x-auto">
@@ -48,7 +40,7 @@
 </x-app-layout>
 
 <script>
-    document.getElementById('ajouterIndicateur').addEventListener('click', function(event) {
+    document.getElementById('ajouterIndicateur').addEventListener('click', function (event) {
         event.preventDefault(); // Empêche le lien de recharger la page
         document.getElementById('formulaireAjout').style.display = 'block';
     });

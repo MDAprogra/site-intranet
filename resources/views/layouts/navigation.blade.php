@@ -18,8 +18,8 @@
                     @if(Auth::user()->role == 'admin')
                         <x-nav-link :href="route('utilisateur')" :active="request()->routeIs('utilisateur')">
                             {{ __('Utilisateur') }}
-                            @endif
                         </x-nav-link>
+                    @endif
                 </div>
             </div>
 

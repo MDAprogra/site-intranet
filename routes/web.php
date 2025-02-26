@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccesIndicateursController;
 use App\Http\Controllers\IndicateurController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -12,6 +13,13 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/gestion-indicateur', [AccesIndicateursController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('access-indicateurs');
+Route::put('/gestion-indicateur', [AccesIndicateursController::class, 'update'])
+    ->middleware(['auth', 'verified'])
+    ->name('indicateurs.update');
 
 Route::get('/indicateur', [IndicateurController::class, 'index'])
     ->middleware(['auth', 'verified'])
