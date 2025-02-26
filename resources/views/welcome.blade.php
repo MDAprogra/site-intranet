@@ -188,28 +188,28 @@
         </style>
     @endif
 </head>
-<body class="bg-[#a6b9b9] text-[#354f44] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-<header class="w-screen text-sm absolute top-0 right-0 p-4 bg-[#a6b9b9] shadow-md">
+<body class="bg-[#607066] text-gray-200 flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
+<header class="w-screen text-sm absolute top-0 right-0 p-4 bg-[#607066] shadow-md">
     <div class="flex items-center justify-between">
-        <h1 class="text-[#354f44] font-medium text-xl">Intranet</h1>
+        <h1 class="text-gray-200 font-medium text-xl">Intranet</h1>
 
         <!-- Navigation -->
         <nav class="flex items-center gap-4" aria-label="Main Navigation">
             <a href="https://interfas.myyellowboxcrm.com/" target="_blank"
-               class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
+               class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-200 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                aria-label="YellowboxCRM">
                 YellowboxCRM
             </a>
 
             <a href="http://192.168.1.58:8180/webquartz/" target="_blank"
-               class="inline-flex items-center px-4 py-2  rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
+               class="inline-flex items-center px-4 py-2  rounded-md text-sm font-medium text-gray-200 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                aria-label="Horoquartz">
                 Horoquartz
             </a>
 
             <div class="relative group" id="transportersMenu">
                 <button
-                    class="inline-flex items-center px-4 py-2  rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
+                    class="inline-flex items-center px-4 py-2  rounded-md text-sm font-medium text-gray-200 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                     aria-haspopup="true" aria-expanded="false">
                     Transporteurs
                     <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -220,45 +220,45 @@
                 <div id="transportersDropdown"
                      class="absolute hidden group-hover:block bg-white border border-gray-200 rounded-md shadow-lg mt-2 w-48">
                     <a href="https://www.tnt.fr/public/login/index.do"
-                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">TNT</a>
+                       class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-md">TNT</a>
                     <a href="https://www.dbschenker.com/fr-fr"
-                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">DB SCHENKER</a>
+                       class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-md">DB SCHENKER</a>
                     <a href="https://connect.gefco.net/psc-portal/login.html#LogIn"
-                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">GEFCO</a>
+                       class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-md">GEFCO</a>
                     <a href="http://www.dpd.fr/trace"
-                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">DPD</a>
+                       class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-md">DPD</a>
                     <a href="http://chargeurweb.com/tracking"
-                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">VARILLON</a>
+                       class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-md">VARILLON</a>
                 </div>
             </div>
             <a href="https://eprint.interfas.fr/" target="_blank"
-               class="inline-flex items-center px-4 py-2  rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
+               class="inline-flex items-center px-4 py-2  rounded-md text-sm font-medium text-gray-200 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                aria-label="E-print">
                 E-print
             </a>
             <a href="https://www.esupply.valeo.com/" target="_blank"
-               class="inline-flex items-center px-4 py-2  rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
+               class="inline-flex items-center px-4 py-2  rounded-md text-sm font-medium text-gray-200 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                aria-label="Valeo">
                 Valeo
             </a>
             <a href="https://auscp.aperam.com/oauth2/authorize?response_type=code&client_id=c2e184e7-af79-420f-90d6-c3bfa6b95449"
                target="_blank"
-               class="inline-flex items-center px-4 py-2  rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
+               class="inline-flex items-center px-4 py-2  rounded-md text-sm font-medium text-gray-200 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                aria-label="Aperam">
                 Aperam
             </a>
             <a href="https://armoires.zeendoc.com/interfas/" target="_blank"
-               class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
+               class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-200 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                aria-label="Zeendoc">
                 Zeendoc
             </a>
             <a href="https://shop.bluestoreinc.com/fr" target="_blank"
-               class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
+               class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-200 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                aria-label="Bluestar">
                 Bluestar
             </a>
             <a href="https://client.interfas.fr/proxiserve/" target="_blank"
-               class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
+               class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-200 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                aria-label="Proxyserve">
                 Proxyserve
             </a>
@@ -269,7 +269,7 @@
             <nav class="flex items-center justify-end gap-4">
                 @auth
                     <a href="{{ url('/indicateur') }}"
-                       class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
+                       class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-200 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                        aria-label="Tableau de bord">
                         Indicateurs
                     </a>
@@ -278,7 +278,7 @@
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
                                 <button
-                                    class="flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
+                                    class="flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-200 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                                     aria-haspopup="true"
                                     aria-expanded="false">
                                     <div>{{ Auth::user()->name }}</div>
@@ -295,7 +295,7 @@
 
                             <x-slot name="content">
                                 <x-dropdown-link :href="route('profile.edit')"
-                                                 class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
+                                                 class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-200 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
                                     {{ __('Profil') }}
                                 </x-dropdown-link>
 
@@ -303,7 +303,7 @@
                                     @csrf
                                     <x-dropdown-link :href="route('logout')"
                                                      onclick="event.preventDefault(); this.closest('form').submit();"
-                                                     class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
+                                                     class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-200 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
                                         {{ __('Déconnexion') }}
                                     </x-dropdown-link>
                                 </form>
@@ -312,7 +312,7 @@
                     </div>
                 @else
                     <a href="{{ route('login') }}"
-                       class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
+                       class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-200 hover:text-gray-900 hover:bg-gray-100 transition duration-150 ease-in-out"
                        aria-label="Se connecter">
                         Se connecter
                     </a>
@@ -361,7 +361,7 @@
         </p>
     </section>
 </main>
-<footer class="w-full bg-[#a6b9b9] text-[#354f44] text-center p-4">
+<footer class="w-full bg-[#607066] text-gray-200 text-center p-4">
     <p>&copy; {{ date('Y') }} INTERFAS. Tous droits réservés.</p>
 </footer>
 <script>
