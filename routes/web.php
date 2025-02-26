@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccesIndicateursController;
 use App\Http\Controllers\IndicateurController;
+use App\Http\Controllers\Indicateurs\DevisController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\CreateUserController;
 use App\Http\Controllers\User\UserController;
@@ -25,6 +26,14 @@ Route::put('/gestion-indicateur', [AccesIndicateursController::class, 'update'])
 Route::get('/indicateur', [IndicateurController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('indicateur');
+
+Route::get('/indicateur/{indicateur}', [IndicateurController::class, 'show'])
+    ->middleware(['auth', 'verified'])
+    ->name('indicateur.show');
+
+Route::get('/indicateur/devis', [DevisController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('indicateur.devis');
 
 Route::get('/utilisateur', [UserController::class, 'index'])
     ->middleware(['auth', 'verified'])

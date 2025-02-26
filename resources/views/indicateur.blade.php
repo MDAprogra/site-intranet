@@ -12,26 +12,26 @@
                     <h1 class="font-bold text-xl underline">{{ __("Vos indicateurs disponibles") }}</h1>
                 </div>
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                            <tr>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Nom
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach($indicateurs as $indicateur)
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $indicateur->name }}</div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        @foreach($indicateurs as $indicateur)
+                            @if($indicateur->component)
+                                <a href="{{ route('indicateur.show', $indicateur->component) }}" class="block relative">
+                                    <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition duration-300">
+                                        <h3 class="font-semibold text-lg text-gray-800">{{ $indicateur->name }}</h3>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute top-1/2 right-4 -translate-y-1/2 w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </div>
+                                </a>
+                            @else
+                                <div class="bg-white rounded-lg shadow-md p-4 relative">
+                                    <h3 class="font-semibold text-lg text-gray-800">{{ $indicateur->name }}</h3>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="absolute top-1/2 right-4 -translate-y-1/2 w-6 h-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </div>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
             </div>
