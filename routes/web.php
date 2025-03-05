@@ -32,10 +32,10 @@ Route::get('/dashboard', function () {
 //Route::get('/indicateur/{indicateur}', [IndicateurController::class, 'show'])
 //    ->middleware(['auth', 'verified'])
 //    ->name('indicateur.show');
-//
-//Route::get('/indicateur/devis', [DevisController::class, 'index'])
-//    ->middleware(['auth', 'verified'])
-//    ->name('indicateur.devis');
+
+Route::get('/indicateur/devis', [DevisController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+->name('indicateur.devis');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/utilisateur', [UserController::class, 'index'])
@@ -52,8 +52,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/indicateur', [IndicateurController::class, 'index'])
         ->name('indicateur');
-    Route::get('/indicateur/{indicateur}', [IndicateurController::class, 'show'])
-        ->name('indicateur.show');
+//    Route::get('/indicateur/{indicateur}', [IndicateurController::class, 'show'])
+//        ->name('indicateur.show');
 
     Route::get('/indicateur/devis', [DevisController::class, 'index'])
         ->name('indicateur.devis');
