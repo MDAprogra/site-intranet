@@ -11,7 +11,7 @@
         <div class="max-w-7xl mx-auto sm:px-4 lg:px-4">
             <div class="bg-white overflow-hidden shadow-md rounded-lg">
                 <div class="p-8 text-gray-900">
-                    <h1 class="font-bold text-2xl mb-6 text-[#607066]">
+                    <h1 class="font-bold text-2xl mb-6 text-[#83818f]">
                         {{ __("Vos indicateurs disponibles") }}
                     </h1>
 
@@ -19,7 +19,7 @@
                         @foreach ($indicateurs as $indicateur)
                             <li>
                                 <a href="{{ route($indicateur->component) }}" 
-                                   class="block px-4 py-2 bg-[#607066] hover:bg-[#354f44] rounded-md transition duration-300 ease-in-out">
+                                   class="block px-4 py-2 bg-[#83818f] hover:bg-[#d3d3d6] rounded-md transition duration-300 ease-in-out">
                                     <span class="text-gray-200 font-medium">{{ $indicateur->name }}</span>
                                 </a>
                             </li>

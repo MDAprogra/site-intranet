@@ -15,7 +15,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="flex justify-between items-center mb-4">
                         <a href="{{ route('create-user') }}">
-                            <button class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
+                            <button class="bg-[#83818f] text-white font-semibold py-2 px-4 rounded">
                                 Créer un utilisateur
                             </button>
                         </a>
