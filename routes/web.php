@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccesIndicateursController;
 use App\Http\Controllers\IndicateurController;
 use App\Http\Controllers\Indicateurs\DevisController;
+use App\Http\Controllers\PaoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\CreateUserController;
 use App\Http\Controllers\User\UserController;
@@ -36,6 +37,13 @@ Route::get('/dashboard', function () {
 Route::get('/indicateur/devis', [DevisController::class, 'index'])
     ->middleware(['auth', 'verified'])
 ->name('indicateur.devis');
+Route::get('/indicateur/pao', [PaoController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+->name('indicateur.pao');
+
+
+
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/utilisateur', [UserController::class, 'index'])
