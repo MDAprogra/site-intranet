@@ -183,8 +183,8 @@
         </style>
     @endif
 </head>
-<body class="bg-[#607066] text-gray-200 flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-<header class="w-screen text-sm absolute top-0 right-0 p-4 bg-[#607066] shadow-md">
+<body class="bg-[#e1e1e1] text-gray-200 flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
+<header class="w-screen text-sm absolute top-0 right-0 p-4 bg-[#83818f] shadow-md">
     <div class="flex items-center justify-between">
         <h1 class="text-gray-200 font-medium text-xl ml-3">Intranet</h1>
 
@@ -347,14 +347,14 @@
         ];
     @endphp
 
-    <div class="mt-8 p-6 bg-gray-100 rounded-lg shadow-md text-center">
+    {{-- <div class="mt-8 p-6 bg-gray-100 rounded-lg shadow-md text-center">
         <p class="text-gray-700 text-lg">
             Si vous avez des questions, des commentaires ou si vous remarquez des erreurs,
             n'hésitez pas à nous en faire part.
         </p>
         <div class="mt-4 space-y-2">
             <a href="mailto:votre-email@interfas.com"
-               class="flex items-center justify-center gap-2 bg-[#607066] hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition">
+               class="flex items-center justify-center gap-2 bg-[#83818f] hover:bg-[#cdcdcd] text-white font-bold py-2 px-4 rounded-lg transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path
                         d="M2.94 4.94A2.5 2.5 0 015.5 4h9a2.5 2.5 0 012.56 2.56L10 11.5 2.94 6.56A2.5 2.5 0 012.94 4.94z"/>
@@ -363,7 +363,7 @@
                 Christian LINOSSIER
             </a>
             <a href="mailto:votre-email@interfas.com"
-               class="flex items-center justify-center gap-2 bg-[#607066] hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition">
+               class="flex items-center justify-center gap-2 bg-[#83818f] hover:bg-[#cdcdcd] text-white font-bold py-2 px-4 rounded-lg transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path
                         d="M2.94 4.94A2.5 2.5 0 015.5 4h9a2.5 2.5 0 012.56 2.56L10 11.5 2.94 6.56A2.5 2.5 0 012.94 4.94z"/>
@@ -372,14 +372,14 @@
                 Matthias DAUVEL => [Alternant Développeur]
             </a>
         </div>
-    </div>
+    </div> --}}
 
 
     <section class="mb-8 p-6 mt-4 bg-gray-50 rounded-lg shadow-md animate-fadeIn">
         <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-2">Charte Informatique d'INTERFAS</h2>
-        <p class="text-red-600 font-bold text-lg animate-pulse">
+        {{-- <p class="text-red-600 font-bold text-lg animate-pulse">
             Le non-respect de cette charte peut entraîner des sanctions administratives et pénales.
-        </p>
+        </p> --}}
         <p class="text-gray-700 mb-6">
             La présente charte définit les règles d'utilisation des ressources informatiques au sein d'INTERFAS,
             rappelant les responsabilités de chaque utilisateur et soulignant le cadre juridique de ces activités.
@@ -391,7 +391,7 @@
                 @if ($section['type'] === 'list')
                     <ul class="list-disc list-inside text-gray-700 space-y-2">
                         @foreach ($section['content'] as $item)
-                            <li class="hover:text-green-600 transition duration-300">{{ $item }}</li>
+                            <li class="transition duration-300">{{ $item }}</li>
                         @endforeach
                     </ul>
                 @else
@@ -402,7 +402,7 @@
     </section>
 
 </main>
-<footer class="w-full bg-[#607066] text-gray-200 text-center p-4">
+<footer class="w-full text-[#83818f] text-center p-4">
     <p>&copy; {{ date('Y') }} INTERFAS. Tous droits réservés.</p>
 </footer>
 <script>
