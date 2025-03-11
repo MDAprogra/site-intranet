@@ -46,7 +46,6 @@ class PaoController extends Controller
             $pao->semaine = $date->format('Y-W');
         }
 
-        // Compter les dossiers par semaine
         // Compter les dossiers par semaine (sans vérifier l'unicité)
         $CompteDossierSemaine = [];
         foreach ($EcartPAO as $pao) {
