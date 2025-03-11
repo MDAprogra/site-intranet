@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccesIndicateursController;
 use App\Http\Controllers\IndicateurController;
+use App\Http\Controllers\AssistantCommercialController;
 use App\Http\Controllers\Indicateurs\DevisController;
 use App\Http\Controllers\PaoController;
 use App\Http\Controllers\ProfileController;
@@ -40,6 +41,9 @@ Route::get('/indicateur/devis', [DevisController::class, 'index'])
 Route::get('/indicateur/pao', [PaoController::class, 'index'])
     ->middleware(['auth', 'verified'])
 ->name('indicateur.pao');
+Route::get('/indicateur/assistant-commercial', [AssistantCommercialController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+->name('indicateur.asscom');
 
 
 
