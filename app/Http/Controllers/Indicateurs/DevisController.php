@@ -38,10 +38,6 @@ ORDER BY endv_date DESC;");
             }
             $DevisMois[$mois] += $row->nombre;
         }
-
-        //dd($DevisSemaine, $DevisMois);
-
-
         return view('components.devis', compact('DevisSemaine', 'DevisMois'));
     }
 }
