@@ -10,13 +10,20 @@ class DevisController extends Controller
 {
     public function index()
     {
-        $Devis = DB::connection('pgsql')->select("SELECT endv_date,
-       COUNT(*) AS nombre
-FROM fd_entete_devi
-WHERE TO_CHAR(endv_date, 'YYYY') >= '2024'
-  AND endv_init_dev IN ('CCE', 'DBD', 'DGY', 'IAE', 'KPN', 'QRN', 'TSE')
-GROUP BY endv_date
-ORDER BY endv_date DESC;");
+        $Devis = DB::connection('pgsql')->select("
+            SELECT
+                endv_date,
+                COUNT(*) AS nombre
+            FROM
+                fd_entete_devi
+            WHERE
+                TO_CHAR(endv_date, 'YYYY') >= '2024'
+                AND endv_init_dev IN ('CCE', 'DBD', 'DGY', 'IAE', 'KPN', 'QRN', 'TSE')
+            GROUP BY
+                endv_date
+            ORDER BY
+                endv_date DESC;
+        ");
 
         $DevisSemaine = [];
         $DevisMois = [];
@@ -38,6 +45,7 @@ ORDER BY endv_date DESC;");
             }
             $DevisMois[$mois] += $row->nombre;
         }
+
         return view('components.devis', compact('DevisSemaine', 'DevisMois'));
     }
 }
