@@ -35,26 +35,59 @@
                             <div class="overflow-x-auto">
                                 <table class="min-w-full divide-y divide-gray-200">
                                     <thead class="bg-gray-50">
-                                        <tr>
-                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                {{ __("Semaine") }}
-                                            </th>
-                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                {{ __("Nombre de devis") }}
-                                            </th>
-                                        </tr>
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            {{ __("Semaine") }}
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            {{ __("Nombre de devis") }}
+                                        </th>
+                                    </tr>
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
-                                        @foreach ($DevisSemaine as $devis)
-                                            <tr>
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    {{ $devis->semaine }}
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    {{ $devis->nombre }}
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                    @foreach ($DevisSemaine as $semaine => $nombre)
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                {{ $semaine }}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                {{ $nombre }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        {{-- Table Devis par mois --}}
+                        <div>
+                            <h2 class="font-bold text-2xl mb-4">
+                                {{ __("Devis par mois") }}
+                            </h2>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            {{ __("Mois") }}
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            {{ __("Nombre de devis") }}
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                    @foreach ($DevisMois as $mois => $nombre)
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                {{ $mois }}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                {{ $nombre }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
