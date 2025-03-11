@@ -11,40 +11,33 @@ class DevisController extends Controller
     public function index()
     {
         $Devis = DB::connection('pgsql')->select("
-            SELECT
-                endv_date,
-                COUNT(*) AS nombre
-            FROM
-                fd_entete_devi
-            WHERE
-                TO_CHAR(endv_date, 'YYYY') >= '2024'
-                AND endv_init_dev IN ('CCE', 'DBD', 'DGY', 'IAE', 'KPN', 'QRN', 'TSE')
-            GROUP BY
-                endv_date
-            ORDER BY
-                endv_date DESC;
-        ");
+        SELECT
+            endv_date,
+            COUNT(*) AS nombre
+        FROM
+            fd_entete_devi
+        WHERE
+            TO_CHAR(endv_date, 'YYYY') >= '2024'
+            AND endv_init_dev IN ('CCE', 'DBD', 'DGY', 'IAE', 'KPN', 'QRN', 'TSE')
+        GROUP BY
+            endv_date
+        ORDER BY
+            endv_date DESC;
+    ");
 
-        $DevisSemaine = [];
-        $DevisMois = [];
+        $collection = collect($Devis);
 
-        foreach ($Devis as $row) {
-            $date = new DateTime($row->endv_date);
+        $DevisSemaine = $collection->mapWithKeys(function ($item) {
+            $date = new DateTime($item->endv_date);
             $semaine = $date->format("Y-W");
+            return [$semaine => ($this->DevisSemaine[$semaine] ?? 0) + $item->nombre];
+        })->toArray();
+
+        $DevisMois = $collection->mapWithKeys(function ($item) {
+            $date = new DateTime($item->endv_date);
             $mois = $date->format("Y-m");
-
-            // Group by week
-            if (!isset($DevisSemaine[$semaine])) {
-                $DevisSemaine[$semaine] = 0;
-            }
-            $DevisSemaine[$semaine] += $row->nombre;
-
-            // Group by month
-            if (!isset($DevisMois[$mois])) {
-                $DevisMois[$mois] = 0;
-            }
-            $DevisMois[$mois] += $row->nombre;
-        }
+            return [$mois => ($this->DevisMois[$mois] ?? 0) + $item->nombre];
+        })->toArray();
 
         return view('components.devis', compact('DevisSemaine', 'DevisMois'));
     }
