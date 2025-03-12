@@ -91,7 +91,5 @@ order by MVT_DATE_MVT desc;
             'NbBLWeek' => $NbBLWeek,
             'NbBLMonth' => $NbBLMonth,
         ]);
-
-        //return view('components.assistant-commercial');
     }
 }
