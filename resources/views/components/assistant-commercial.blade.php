@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-200 leading-tight">
-            {{ __('Devis') }}
+            {{ __('Devis et Livraisons') }}
         </h2>
     </x-slot>
 
@@ -22,6 +22,7 @@
                             Retour
                         </a>
                     </div>
+
                     {{-- Encadré d'informations --}}
                     <div class="mb-8 p-4 bg-blue-50 border border-blue-200 rounded-md">
                         <div class="flex items-center">
@@ -31,29 +32,31 @@
                                       d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
                             <span class="text-sm text-blue-700">
-    Statistiques des devis : visualisez le nombre de devis par semaine et par mois.
-</span>
+                                Statistiques des devis et livraisons : visualisez le nombre de dossiers et de bons de livraison par semaine et par mois.
+                            </span>
                         </div>
                     </div>
 
                     {{-- Conteneur pour les tableaux côte à côte --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {{-- Tableau Données par Semaine --}}
+                        {{-- Tableau Données par Semaine (Dossiers et BL) --}}
                         <div>
-                            <h3 class="text-lg font-semibold mb-4">Nombre de Dossiers par Semaine</h3>
+                            <h3 class="text-lg font-semibold mb-4">Semaine</h3>
                             <div class="overflow-x-auto">
                                 <table class="min-w-full bg-white border border-gray-300">
                                     <thead>
                                     <tr>
                                         <th class="py-2 px-4 border-b">Semaine</th>
                                         <th class="py-2 px-4 border-b">Nombre de Dossiers</th>
+                                        <th class="py-2 px-4 border-b">Nombre de BL</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($NbDossierWeek as $semaine => $nombres)
+                                    @foreach ($NbDossierWeek as $semaine => $nombresDossiers)
                                         <tr>
                                             <td class="py-2 px-4 border-b">{{ $semaine }}</td>
-                                            <td class="py-2 px-4 border-b">{{ array_sum($nombres) }}</td>
+                                            <td class="py-2 px-4 border-b">{{ array_sum($nombresDossiers) }}</td>
+                                            <td class="py-2 px-4 border-b">{{ array_sum($NbBLWeek[$semaine] ?? [0]) }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -61,22 +64,24 @@
                             </div>
                         </div>
 
-                        {{-- Tableau Données par Mois --}}
+                        {{-- Tableau Données par Mois (Dossiers et BL) --}}
                         <div>
-                            <h3 class="text-lg font-semibold mb-4">Nombre de Dossiers par Mois</h3>
+                            <h3 class="text-lg font-semibold mb-4">Mois</h3>
                             <div class="overflow-x-auto">
                                 <table class="min-w-full bg-white border border-gray-300">
                                     <thead>
                                     <tr>
                                         <th class="py-2 px-4 border-b">Mois</th>
                                         <th class="py-2 px-4 border-b">Nombre de Dossiers</th>
+                                        <th class="py-2 px-4 border-b">Nombre de BL</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($NbDossierMonth as $mois => $nombres)
+                                    @foreach ($NbDossierMonth as $mois => $nombresDossiers)
                                         <tr>
                                             <td class="py-2 px-4 border-b">{{ $mois }}</td>
-                                            <td class="py-2 px-4 border-b">{{ array_sum($nombres) }}</td>
+                                            <td class="py-2 px-4 border-b">{{ array_sum($nombresDossiers) }}</td>
+                                            <td class="py-2 px-4 border-b">{{ array_sum($NbBLMonth[$mois] ?? [0]) }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -84,7 +89,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
