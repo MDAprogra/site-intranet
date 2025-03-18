@@ -7,13 +7,13 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-md rounded-lg border border-gray-200">
-                <div class="p-8">
+            <div class="bg-gray-800 overflow-hidden shadow-md rounded-lg border border-gray-700">
+                <div class="p-8 text-gray-200">
 
                     {{-- Bouton Retour --}}
                     <div class="mb-6">
                         <a href="{{ route('indicateur') }}"
-                           class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded inline-flex items-center">
+                           class="bg-gray-700 hover:bg-gray-600 text-gray-200 font-semibold py-2 px-4 rounded inline-flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
                                  stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -22,37 +22,45 @@
                             Retour
                         </a>
                     </div>
+
                     {{-- Encadré d'informations --}}
-                    <div class="mb-8 p-4 bg-blue-50 border border-blue-200 rounded-md">
-                        <div class="flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span class="text-sm text-blue-700">
-                                Voici les statistiques des devis. Vous pouvez consulter le nombre de devis par semaine et par mois. Les données par deviseur arriveront bientôt.
-                            </span>
+                    <div class="mb-8 p-4 bg-blue-900 border border-blue-800 rounded-md" x-data="{ open: true }" x-show="open" x-transition>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span class="text-sm text-blue-300">
+                                    Voici les statistiques des devis. Vous pouvez consulter le nombre de devis par semaine et par mois. Les données par deviseur arriveront bientôt.
+                                </span>
+                            </div>
+                            <button @click="open = ! open" class="text-blue-400 hover:text-blue-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {{-- Table Devis par semaine --}}
                         <div>
-                            <h2 class="font-bold text-2xl mb-4">
+                            <h2 class="font-bold text-2xl mb-4 text-gray-200">
                                 {{ __("Devis par semaine") }}
                             </h2>
                             <div class="overflow-x-auto">
-                                <table class="min-w-full divide-y divide-gray-200">
-                                    <thead class="bg-gray-50">
+                                <table class="min-w-full divide-y divide-gray-700">
+                                    <thead class="bg-gray-700">
                                     <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                                             {{ __("Semaine") }}
                                         </th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                                             {{ __("Nombre de devis") }}
                                         </th>
                                     </tr>
                                     </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200">
+                                    <tbody class="bg-gray-800 divide-y divide-gray-700">
                                     @foreach ($DevisSemaine as $semaine => $nombre)
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap">
@@ -70,22 +78,22 @@
 
                         {{-- Table Devis par mois --}}
                         <div>
-                            <h2 class="font-bold text-2xl mb-4">
+                            <h2 class="font-bold text-2xl mb-4 text-gray-200">
                                 {{ __("Devis par mois") }}
                             </h2>
                             <div class="overflow-x-auto">
-                                <table class="min-w-full divide-y divide-gray-200">
-                                    <thead class="bg-gray-50">
+                                <table class="min-w-full divide-y divide-gray-700">
+                                    <thead class="bg-gray-700">
                                     <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                                             {{ __("Mois") }}
                                         </th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                                             {{ __("Nombre de devis") }}
                                         </th>
                                     </tr>
                                     </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200">
+                                    <tbody class="bg-gray-800 divide-y divide-gray-700">
                                     @foreach ($DevisMois as $mois => $nombre)
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap">
@@ -111,14 +119,6 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const loadMoreButton = document.getElementById('loadMore');
-        if (loadMoreButton) {
-            loadMoreButton.addEventListener('click', function () {
-                // Implémentez ici la logique pour charger plus d'éléments
-                // Vous pouvez utiliser AJAX pour récupérer les données supplémentaires
-                // et les ajouter au tableau.
-                alert('Fonctionnalité "Afficher plus" à implémenter.');
-            });
-        }
+        // Suppression du code de "loadMore" car non utilisé
     });
 </script>
