@@ -84,6 +84,7 @@
 
         .dropdown-menu a:hover {
             background-color: #f3f4f6;
+            color: #111827;
         }
 
         main {
