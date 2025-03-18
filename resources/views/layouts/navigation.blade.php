@@ -31,12 +31,12 @@
                     </button>
                 </x-slot>
                 <x-slot name="content">
-                    <x-dropdown-link :href="route('profile.edit')" class="text-gray-900">
+                    <x-dropdown-link :href="route('profile.edit')" class="text-gray-900 hover:bg-gray-100">
                         {{ __('Profil') }}
                     </x-dropdown-link>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();" class="text-gray-900">
+                        <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();" class="text-gray-900 hover:bg-gray-100">
                             {{ __('Se déconnecter') }}
                         </x-dropdown-link>
                     </form>
