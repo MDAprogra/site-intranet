@@ -4,6 +4,7 @@ use App\Http\Controllers\AccesIndicateursController;
 use App\Http\Controllers\IndicateurController;
 use App\Http\Controllers\AssistantCommercialController;
 use App\Http\Controllers\Indicateurs\DevisController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PaoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\CreateUserController;
@@ -17,6 +18,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/slideshow', [MediaController::class, 'showSlideshow'])->name('slideshow');
 
 
 //Route::get('/gestion-indicateur', [AccesIndicateursController::class, 'index'])
@@ -37,16 +40,13 @@ Route::get('/dashboard', function () {
 
 Route::get('/indicateur/devis', [DevisController::class, 'index'])
     ->middleware(['auth', 'verified'])
-->name('indicateur.devis');
+    ->name('indicateur.devis');
 Route::get('/indicateur/pao', [PaoController::class, 'index'])
     ->middleware(['auth', 'verified'])
-->name('indicateur.pao');
+    ->name('indicateur.pao');
 Route::get('/indicateur/assistant-commercial', [AssistantCommercialController::class, 'index'])
     ->middleware(['auth', 'verified'])
-->name('indicateur.asscom');
-
-
-
+    ->name('indicateur.asscom');
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -76,6 +76,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('utilisateur.edit');
     Route::put('/utilisateur/{user}', [UserController::class, 'update'])
         ->name('utilisateur.update');
+
+
 });
 
 //Route::get('/create-user', [CreateUserController::class, 'create'])
@@ -95,6 +97,13 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/create-user', [CreateUserController::class, 'create'])->name('create-user');
     Route::post('/create-user', [CreateUserController::class, 'store']);
+
+    Route::get('/manage', [MediaController::class, 'showManagePage'])->name('manage');
+    Route::post('/upload', [MediaController::class, 'uploadMedia'])->name('media.upload');
+    Route::delete('/media/{media}', [MediaController::class, 'destroy'])->name('media.destroy');
+    Route::get('/media/{id}/move-up', [MediaController::class, 'moveUp'])->name('media.moveUp');
+    Route::get('/media/{id}/move-down', [MediaController::class, 'moveDown'])->name('media.moveDown');
+
 });
 
 require __DIR__ . '/auth.php';
