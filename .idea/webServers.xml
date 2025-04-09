@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="5ccb72ca-b667-4938-ba50-baf0ea5f6880" name="Ubuntu" url="http://intranet.interfas.local">
+        <fileTransfer rootFolder="/var/www/site-intranet" accessType="SFTP" host="192.168.1.185" port="22" sshConfigId="c9d6726a-e5d7-4ffe-ae56-4e33447ca2e6" sshConfig="matthiasd@192.168.1.185:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" isUseSudo="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
