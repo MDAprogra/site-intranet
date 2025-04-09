@@ -14,6 +14,9 @@
                     <x-nav-link :href="route('utilisateur')" :active="request()->routeIs('utilisateur')" class="text-gray-300 hover:text-white">
                         {{ __('Utilisateur') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('manage')" :active="request()->routeIs('manage')" class="text-gray-300 hover:text-white">
+                        {{ __('Ecran Atelier') }}
+                    </x-nav-link>
                 @endif
             </div>
         </div>

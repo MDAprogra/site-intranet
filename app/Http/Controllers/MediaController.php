@@ -23,29 +23,56 @@ class MediaController extends Controller
 
     public function uploadMedia(Request $request)
     {
+        // Validation des fichiers avec messages personnalisés
         $request->validate([
             'media.*' => 'required|mimes:jpeg,png,jpg,gif,svg,mp4,mov,ogg,qt|max:200000',
+        ], [
+            'media.*.required' => 'Un fichier est requis.',
+            'media.*.mimes' => 'Seuls les fichiers de type : jpeg, png, jpg, gif, svg, mp4, mov, ogg, qt sont autorisés.',
+            'media.*.max' => 'La taille maximale pour chaque fichier est de 200 Mo.',
         ]);
 
-        foreach ($request->file('media') as $file) {
-            $type = $file->getMimeType();
-            Log::info('Type MIME reçu: ' . $type); // Ajout du log
-            $path = $file->store('media', 'public');
-            $type = str_contains($type, 'image') ? 'image' : 'video';
+        // Récupération des fichiers
+        $files = $request->file('media');
 
-            Media::create([
-                'path' => $path,
-                'type' => $type,
-            ]);
+        // Vérification si des fichiers ont été fournis
+        if (!$files || count($files) === 0) {
+            return redirect()->route('manage')->with('error', 'Aucun fichier valide n\'a été téléchargé.');
         }
 
-        return redirect()->route('manage')->with('success', 'Media files uploaded successfully.');
+        foreach ($files as $file) {
+            try {
+                // Log du type MIME
+                $type = $file->getMimeType();
+                Log::info('Type MIME reçu : ' . $type);
+
+                // Sauvegarde du fichier
+                $path = $file->store('media', 'public');
+
+                // Détermination du type (image ou vidéo)
+                $mediaType = str_contains($type, 'image') ? 'image' : 'video';
+
+                // Création de l'entrée dans la base de données
+                Media::create([
+                    'path' => $path,
+                    'type' => $mediaType,
+                ]);
+
+            } catch (\Exception $e) {
+                // Log de l'erreur en cas de problème
+                Log::error('Erreur lors du téléchargement du fichier : ' . $e->getMessage());
+                return redirect()->route('manage')->with('error', 'Une erreur s\'est produite lors du téléchargement.');
+            }
+        }
+
+        // Redirection avec un message de succès
+        return redirect()->route('manage')->with('success', 'Les fichiers ont été téléchargés avec succès.');
     }
     public function destroy(Media $media)
     {
         Storage::delete($media->path); // Supprimer le fichier du stockage
         $media->delete(); // Supprimer l'enregistrement de la base de données
-        return response()->json(['success' => true]);
+        return redirect()->route('manage')->with('success', 'Media supprimé avec succès.');
     }
 
     public function moveUp($id)
