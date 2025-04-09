@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container mx-auto p-6 max-w-7xl">
         <div class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-bold text-gray-800">Gestion des Médias</h1>
+            <h1 class="text-3xl font-bold text-gray-200">Gestion des Médias</h1>
             <a href="{{ route('slideshow') }}" target="_blank">
                 <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
