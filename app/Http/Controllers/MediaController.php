@@ -70,12 +70,16 @@ class MediaController extends Controller
         // Redirection avec un message de succès
         return redirect()->route('manage')->with('success', 'Les fichiers ont été téléchargés avec succès.');
     }
+
     public function destroy(Media $media)
     {
-        Storage::delete($media->path); // Supprimer le fichier du stockage
-        $media->delete(); // Supprimer l'enregistrement de la base de données
-        return redirect()->route('manage')->with('success', 'Media supprimé avec succès.');
+        if (Storage::disk('public')->delete($media->path)) {
+            $media->delete();
+            return redirect()->route('manage')->with('success', 'Media supprimé avec succès.');
+        }
+        return redirect()->route('manage')->with('error', 'Le fichier n\'existe pas.');
     }
+
 
     public function moveUp($id)
     {
