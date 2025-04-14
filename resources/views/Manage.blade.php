@@ -83,7 +83,7 @@
 
                             {{-- Badge avec numéro --}}
                             <div class="absolute top-2 left-2 bg-indigo-600 text-white text-sm px-3 py-1 rounded-full">
-                                #{{ $index + 1 }}
+                                #{{ $file->order }}
                             </div>
 
                             {{-- Bouton suppression --}}

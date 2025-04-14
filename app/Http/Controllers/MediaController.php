@@ -17,7 +17,7 @@ class MediaController extends Controller
 
     public function showManagePage()
     {
-        $mediaFiles = Media::all();
+        $mediaFiles = Media::orderBy('order')->get();
         return view('Manage', compact('mediaFiles'));
     }
 
@@ -54,8 +54,10 @@ class MediaController extends Controller
 
                 // Création de l'entrée dans la base de données
                 Media::create([
+                    'id' => Media::max('id') + 1, // Incrémente l'ID
                     'path' => $path,
                     'type' => $mediaType,
+                    'order' => Media::max('order') + 1, // Incrémente l'ordre
                 ]);
 
             } catch (\Exception $e) {
