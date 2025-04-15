@@ -48,9 +48,9 @@
                         class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
                         name="remember"
                 >
-                <label for="remember_me" class="ml-2 block text-sm text-gray-600">
-                    {{ __('Se souvenir de moi') }}
-                </label>
+{{--                <label for="remember_me" class="ml-2 block text-sm text-gray-600">--}}
+{{--                    {{ __('Se souvenir de moi') }}--}}
+{{--                </label>--}}
             </div>
 
             <div class="flex items-center justify-between">
