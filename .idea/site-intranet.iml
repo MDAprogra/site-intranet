@@ -132,5 +132,6 @@
     <orderEntry type="library" name="alpinejs" level="application" />
     <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" name="slick-carousel" level="application" />
+    <orderEntry type="library" name="tailwindcss" level="application" />
   </component>
 </module>
