@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccesIndicateursController;
 use App\Http\Controllers\IndicateurController;
 use App\Http\Controllers\AssistantCommercialController;
+use App\Http\Controllers\Indicateurs\BepsController;
 use App\Http\Controllers\Indicateurs\DevisController;
 use App\Http\Controllers\Indicateurs\ProductionController;
 use App\Http\Controllers\MediaController;
@@ -76,7 +77,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/media/{id}/move-down', [MediaController::class, 'moveDown'])->name('media.moveDown');
 
     Route::get('/indicateur-production', [ProductionController::class, 'IndicateurConsoPapier']);
-
+    Route::get('/indicateur-beps',[BepsController::class, 'AfficherBeps']);
 });
 
 require __DIR__ . '/auth.php';
