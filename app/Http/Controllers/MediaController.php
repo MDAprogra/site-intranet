@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -80,43 +81,59 @@ class MediaController extends Controller
         return redirect()->route('manage')->with('error', 'Le fichier n\'existe pas.');
     }
 
+    private function swapOrderWithAdjacent(Media $media, string $direction = 'up')
+    {
+        $query = Media::query();
+
+        if ($direction === 'up') {
+            $adjacentMedia = $query->where('order', '<', $media->order)
+                ->orderByDesc('order')
+                ->first();
+        } elseif ($direction === 'down') {
+            $adjacentMedia = $query->where('order', '>', $media->order)
+                ->orderBy('order')
+                ->first();
+        } else {
+            return false;
+        }
+
+        if ($adjacentMedia) {
+            $tempOrder = $media->order;
+            $media->order = $adjacentMedia->order;
+            $adjacentMedia->order = $tempOrder;
+
+            $media->save();
+            $adjacentMedia->save();
+            return true;
+        }
+
+        return false;
+    }
 
     public function moveUp($id)
     {
-        $media = Media::findOrFail($id);
-        $prevMedia = Media::where('order', '<', $media->order)->orderByDesc('order')->first();
-
-        if ($prevMedia) {
-            // Échanger les valeurs 'order' entre les deux fichiers
-            $tempOrder = $media->order;
-            $media->order = $prevMedia->order;
-            $prevMedia->order = $tempOrder;
-
-            // Sauvegarder les deux médias
-            $media->save();
-            $prevMedia->save();
+        try {
+            $media = Media::findOrFail($id);
+            if ($this->swapOrderWithAdjacent($media, 'up')) {
+                return redirect()->route('manage')->with('success', 'L\'ordre du média a été mis à jour.');
+            }
+            return redirect()->route('manage')->with('info', 'Le média est déjà au sommet.');
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('manage')->with('error', 'Média non trouvé.');
         }
-
-        return redirect()->route('manage')->with('success', 'L\'ordre du média a été mis à jour.');
     }
 
     public function moveDown($id)
     {
-        $media = Media::findOrFail($id);
-        $nextMedia = Media::where('order', '>', $media->order)->orderBy('order')->first();
-
-        if ($nextMedia) {
-            // Échanger les valeurs 'order' entre les deux fichiers
-            $tempOrder = $media->order;
-            $media->order = $nextMedia->order;
-            $nextMedia->order = $tempOrder;
-
-            // Sauvegarder les deux médias
-            $media->save();
-            $nextMedia->save();
+        try {
+            $media = Media::findOrFail($id);
+            if ($this->swapOrderWithAdjacent($media, 'down')) {
+                return redirect()->route('manage')->with('success', 'L\'ordre du média a été mis à jour.');
+            }
+            return redirect()->route('manage')->with('info', 'Le média est déjà en bas.');
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('manage')->with('error', 'Média non trouvé.');
         }
-
-        return redirect()->route('manage')->with('success', 'L\'ordre du média a été mis à jour.');
     }
 
 }
