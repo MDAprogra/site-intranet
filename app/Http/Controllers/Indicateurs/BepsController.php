@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Indicateurs;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use function PHPUnit\Framework\isEmpty;
 
 class BepsController extends Controller
 {
