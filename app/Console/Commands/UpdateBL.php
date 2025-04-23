@@ -26,6 +26,11 @@ class UpdateBL extends Command
      */
     public function handle()
     {
+        //Forcer la database
+        config(['database.default' => 'pgsql']);
+        config(['database.connections.pgsql.database' => 'interfas']);
+        config(['database.connections.pgsql.username' => 'u_odbc']);
+        config(['database.connections.pgsql.password' => 'efi']);
         DB::connection('pgsql')->select("select bo_no,
        bo_devis,
        bo_ref,
