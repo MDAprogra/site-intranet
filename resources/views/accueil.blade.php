@@ -154,6 +154,7 @@
                 <a href="https://www.tnt.fr/public/login/index.do" class="block px-4 py-2 text-gray-800">TNT</a>
                 <a href="https://www.dbschenker.com/fr-fr" class="block px-4 py-2 text-gray-800">DB SCHENKER</a>
                 <a href="https://connect.gefco.net/psc-portal/login.html#LogIn" class="block px-4 py-2 text-gray-800">GEFCO</a>
+                <a href="http://www.dpd.fr/trace" class="block px-4 py-2 text-gray-800">DPD</a>
             </div>
         </div>
 
@@ -166,7 +167,7 @@
         <a href="https://client.interfas.fr/proxiserve/" target="_blank">Proxyserve</a>
 
         @if(Auth::user())
-            <a href="{{ route('indicateur') }}">Indicateurs</a>
+            <a href="{{ route('indicateur') }}" class="font-bold">Tableau de bord</a>
         @else
         <a href="{{ route('login') }}">Connexion</a>
         @endif

@@ -1,4 +1,8 @@
 <x-app-layout>
+    <a href="{{ route('indicateur') }}"
+       class="inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-200 border border-gray-300 rounded-md shadow-sm hover:bg-gray-300 focus:outline-none focus:ring focus:ring-gray-500">
+        {{__('Retour')}}
+    </a>
     <div class="overflow-x-auto">
         @if ($v_BEPS->isEmpty())
             <div class="bg-yellow-800 border border-yellow-600 text-yellow-100 px-4 py-3 rounded relative" role="alert">

@@ -1,5 +1,9 @@
 @php use Carbon\Carbon; @endphp
 <x-app-layout>
+    <a href="{{ route('indicateur') }}"
+       class="inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-200 border border-gray-300 rounded-md shadow-sm hover:bg-gray-300 focus:outline-none focus:ring focus:ring-gray-500">
+        {{__('Retour')}}
+    </a>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <div class="max-w-7xl mx-auto bg-white shadow-md rounded-md overflow-hidden">
         <div class="p-6">

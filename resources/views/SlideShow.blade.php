@@ -90,7 +90,7 @@
             fade: true,
             cssEase: 'linear',
             autoplay: true,
-            autoplaySpeed: 7500,
+            autoplaySpeed: 15000,
             arrows: false,
             pauseOnHover: false,
             pauseOnFocus: false,

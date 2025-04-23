@@ -76,8 +76,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/media/{id}/move-up', [MediaController::class, 'moveUp'])->name('media.moveUp');
     Route::get('/media/{id}/move-down', [MediaController::class, 'moveDown'])->name('media.moveDown');
 
-    Route::get('/indicateur-production', [ProductionController::class, 'IndicateurConsoPapier']);
-    Route::get('/indicateur-beps',[BepsController::class, 'AfficherBeps']);
+    Route::get('/indicateur-production', [ProductionController::class, 'IndicateurConsoPapier'])->name('conso-papier');
+    Route::get('/BEPS',[BepsController::class, 'AfficherBeps'])->name('beps');
+
 });
 
 require __DIR__ . '/auth.php';
