@@ -84,12 +84,12 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'url' => env('DB_URL_PG'),
-            'host' => env('DB_HOST_PG', '192.168.1.216'),
-            'port' => env('DB_PORT_PG', '5432'),
-            'database' => env('DB_DATABASE_PG', 'interfas'),
-            'username' => env('DB_USERNAME_PG', 'u_odbc'),
-            'password' => env('DB_PASSWORD_PG', 'efi'),
+            'url' => env('DB_URL_2'),
+            'host' => env('DB_HOST_2', '192.168.1.216'),
+            'port' => env('DB_PORT_2', '5432'),
+            'database' => env('DB_DATABASE_2', 'interfas'),
+            'username' => env('DB_USERNAME_2', 'u_odbc'),
+            'password' => env('DB_PASSWORD_2', 'efi'),
             'charset' => env('DB_CHARSET', 'utf8'),
             'prefix' => '',
             'prefix_indexes' => true,

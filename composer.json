@@ -13,6 +13,7 @@
         "ext-ftp": "*",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
+        "league/csv": "^9.23",
         "phpseclib/phpseclib": "^3.0"
     },
     "require-dev": {
