@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class UpdateBL extends Command
 {
     protected $signature = 'app:update-bl';
-    protected $description = 'Recuperation et exportation des Bons de Livraison vers un fichier TXT.';
+    protected $description = 'Mise à jour des BL de Yellowbox';
 
     public function handle()
     {

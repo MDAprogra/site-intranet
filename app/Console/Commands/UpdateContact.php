@@ -6,63 +6,55 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Tools\FormatTexte;
+use Illuminate\Support\Facades\Storage;
+use Throwable;
 
 class UpdateContact extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'app:update-contact';
+    protected $description = 'Mise à jour des contacts de Yellowbox';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Mise à jour des contacts';
-
-    /**
-     * Execute the console command.
-     */
     public function handle()
     {
         $start = microtime(true);
-
-        Log::channel('contacts')->info('DEBUT -- exportation des contacts... -- DEBUT');
+        $channel = Log::channel('contacts');
+        $channel->info('DEBUT -- exportation des contacts -- DEBUT');
 
         try {
             $contacts = $this->fetchContacts();
-            Log::channel('contacts')->info('Contacts récupérés avec succès.');
-            Log::channel('contacts')->info('Nombre de contacts récupérés : ' . count($contacts));
+            $channel->info('Contacts récupérés : ' . count($contacts));
 
             $filePath = '/mnt/partage_windows/Exp_Contacts.txt';
-            $file = fopen($filePath, 'w');
-            if ($file === false) {
-                Log::channel('contacts')->error('Impossible d\'ouvrir le fichier : ' . $filePath);
-                return;
-            }
-            foreach ($contacts as $contact) {
-                $line = implode(';', (array)$contact) . "\n";
-                fwrite($file, $line);
-            }
-            fclose($file);
-            Log::channel('contacts')->info('Fichier créé avec succès : ' . $filePath);
-            Log::channel('contacts')->info('Nombre de lignes écrites dans le fichier : ' . count($contacts));
-        } catch (\Exception $e) {
-            Log::channel('contacts')->error('Erreur lors de la récupération des contacts : ' . $e->getMessage());
-            return;
-        }
-        $duration = microtime(true) - $start;
-        Log::channel('contacts')->info('Durée de l\'exécution : ' . $duration . ' secondes');
-        Log::channel('contacts')->info('FIN -- exportation des contacts... -- FIN');
+            $this->writeContactsToFile($contacts, $filePath);
 
+            $channel->info('Fichier créé : ' . $filePath);
+            try {
+                $this->SendToFTP();
+                $channel->info('Fichier envoyé sur le serveur FTP');
+            } catch (\Exception $e) {
+                $channel->error('Erreur lors de l\'envoi du fichier sur le serveur FTP : ' . $e->getMessage());
+                return Command::FAILURE;
+            }
+
+            $duration = round(microtime(true) - $start, 2);
+            $channel->info("Durée d'exécution : {$duration} sec");
+        } catch (Throwable $e) {
+            $channel->error('Erreur : ' . $e->getMessage());
+            $channel->debug($e->getTraceAsString());
+            return Command::FAILURE;
+        }
+        //prochaine execution
+
+
+        $channel->info('FIN -- Temps d\'exécution ' . round($duration, 2) . ' secondes' . ' / Prochaine exécution : ' . now()->addMinutes(5)->format('d/m/Y à H:i') . ' -- FIN');
+        return Command::SUCCESS;
     }
 
-    private function fetchContacts()
+    private function fetchContacts(): array
     {
-        $contacts= DB::connection('pgsql')->select("SELECT DISTINCT
+        $formatter = new FormatTexte();
+
+        $contacts = DB::connection('pgsql')->select("SELECT DISTINCT
 	frc.relcont_code AS relcont_code,
 	fc_references.fo_rep_code AS gest,
 	REPLACE(REPLACE(REPLACE(frc.relcont_adpro ,CHR( 13) , '##') ,CHR( 10) , '##') ,CHR( 9) , '     ')  AS relcont_adpro,
@@ -106,18 +98,49 @@ WHERE
 	AND	fc_references.fo_reference NOT IN ('ZZZZZZZZ', 'ZZZ')
 	AND	fc_references.fo_type_c_f_p IN ('C', 'P', 'F')
 );");
-        //nettoyage de tous les champs avec clean_texte
+
         foreach ($contacts as $contact) {
-            $contact->relcont_adpro = (new FormatTexte)->clean_txt($contact->relcont_adpro);
-            $contact->relcont_adpro_codpost = (new FormatTexte)->clean_txt($contact->relcont_adpro_codpost);
-            $contact->relcont_adpro_ville = (new FormatTexte)->clean_txt($contact->relcont_adpro_ville);
-            $contact->relcont_adpro_tel = (new FormatTexte)->clean_txt($contact->relcont_adpro_tel);
-            $contact->relcont_adpro_pays = (new FormatTexte)->clean_txt($contact->relcont_adpro_pays);
-            $contact->relcont_adpro_email = (new FormatTexte)->clean_txt($contact->relcont_adpro_email);
-            $contact->relcont_prenom = (new FormatTexte)->clean_txt($contact->relcont_prenom);
-            $contact->relcont_nom = (new FormatTexte)->clean_txt($contact->relcont_nom);
+            foreach ($contact as $key => $value) {
+                if (is_string($value)) {
+                    $contact->$key = $formatter->clean_txt($value);
+                }
+            }
         }
+
         return $contacts;
     }
 
+    private function writeContactsToFile(array $contacts, string $filePath): void
+    {
+        $channel = Log::channel('contacts');
+
+        // Vérification du dossier
+        $directory = dirname($filePath);
+        if (!is_dir($directory) || !is_writable($directory)) {
+            throw new \RuntimeException("Le répertoire n'existe pas ou n'est pas accessible en écriture : $directory");
+        }
+
+        // Ouverture du fichier
+        $file = fopen($filePath, 'w');
+        if (!$file) {
+            throw new \RuntimeException("Impossible d'ouvrir le fichier en écriture : $filePath");
+        }
+
+        foreach ($contacts as $contact) {
+            $line = implode(';', (array)$contact) . "\n";
+            fwrite($file, $line);
+        }
+
+        fclose($file);
+        $channel->info("Fichier écrit avec succès : $filePath");
+    }
+
+    private function SendToFTP(): void
+    {
+        try {
+            Storage::disk('sftp')->put('Imports_Automatiques/PHP/Exp_Contacts.txt', fopen('/mnt/partage_windows/Exp_Contacts.txt', 'r+'));
+        } catch (\Exception $e) {
+            throw $e; // Rethrow the exception to be caught in the handle method
+        }
+    }
 }

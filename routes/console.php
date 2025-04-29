@@ -10,4 +10,6 @@ Artisan::command('inspire', function () {
 
 
 Schedule::command('app:update-bl')->everyThirtyMinutes();
+Schedule::command('app:update-contact')->everyFiveMinutes();
+
 

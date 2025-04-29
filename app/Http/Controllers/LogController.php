@@ -4,16 +4,21 @@ namespace App\Http\Controllers;
 
 class LogController extends Controller
 {
-    public function bonsLivraison()
+    public function index()
     {
-        $path = storage_path('logs/bons_livraison.log');
+        $path_BL = storage_path('logs/bons_livraison.log');
+        $path_Contact = storage_path('logs/contacts.log');
 
-        if (!file_exists($path)) {
+        if (!file_exists($path_BL) || !file_exists($path_Contact)) {
             abort(404, 'Fichier de log introuvable.');
         }
 
-        $logs = array_reverse(file($path)); // Lignes inversées (les plus récentes en haut)
+        $logs_BL = array_reverse(file($path_BL));
+        $logs_Contact = array_reverse(file($path_Contact));
 
-        return view('Log', compact('logs'));
+        return view('Log', [
+            'logs_BL' => $logs_BL,
+            'logs_Contact' => $logs_Contact,
+        ]);
     }
 }
