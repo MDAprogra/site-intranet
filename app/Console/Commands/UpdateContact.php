@@ -108,14 +108,14 @@ WHERE
 );");
         //nettoyage de tous les champs avec clean_texte
         foreach ($contacts as $contact) {
-            $contact->relcont_adpro = FormatTexte::clean_texte($contact->relcont_adpro);
-            $contact->relcont_adpro_codpost = FormatTexte::clean_texte($contact->relcont_adpro_codpost);
-            $contact->relcont_adpro_ville = FormatTexte::clean_texte($contact->relcont_adpro_ville);
-            $contact->relcont_adpro_tel = FormatTexte::clean_texte($contact->relcont_adpro_tel);
-            $contact->relcont_adpro_pays = FormatTexte::clean_texte($contact->relcont_adpro_pays);
-            $contact->relcont_adpro_email = FormatTexte::clean_texte($contact->relcont_adpro_email);
-            $contact->relcont_prenom = FormatTexte::clean_texte($contact->relcont_prenom);
-            $contact->relcont_nom = FormatTexte::clean_texte($contact->relcont_nom);
+            $contact->relcont_adpro = (new FormatTexte)->clean_txt($contact->relcont_adpro);
+            $contact->relcont_adpro_codpost = (new FormatTexte)->clean_txt($contact->relcont_adpro_codpost);
+            $contact->relcont_adpro_ville = (new FormatTexte)->clean_txt($contact->relcont_adpro_ville);
+            $contact->relcont_adpro_tel = (new FormatTexte)->clean_txt($contact->relcont_adpro_tel);
+            $contact->relcont_adpro_pays = (new FormatTexte)->clean_txt($contact->relcont_adpro_pays);
+            $contact->relcont_adpro_email = (new FormatTexte)->clean_txt($contact->relcont_adpro_email);
+            $contact->relcont_prenom = (new FormatTexte)->clean_txt($contact->relcont_prenom);
+            $contact->relcont_nom = (new FormatTexte)->clean_txt($contact->relcont_nom);
         }
         return $contacts;
     }
