@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Commands\\TestConnectFTP' => $baseDir . '/app/Console/Commands/TestConnectFTP.php',
     'App\\Console\\Commands\\UpdateArticles' => $baseDir . '/app/Console/Commands/UpdateArticles.php',
     'App\\Console\\Commands\\UpdateBL' => $baseDir . '/app/Console/Commands/UpdateBL.php',
     'App\\Http\\Controllers\\AccesIndicateursController' => $baseDir . '/app/Http/Controllers/AccesIndicateursController.php',
@@ -2888,6 +2889,17 @@ return array(
     'League\\Flysystem\\PathNormalizer' => $vendorDir . '/league/flysystem/src/PathNormalizer.php',
     'League\\Flysystem\\PathPrefixer' => $vendorDir . '/league/flysystem/src/PathPrefixer.php',
     'League\\Flysystem\\PathTraversalDetected' => $vendorDir . '/league/flysystem/src/PathTraversalDetected.php',
+    'League\\Flysystem\\PhpseclibV3\\ConnectionProvider' => $vendorDir . '/league/flysystem-sftp-v3/ConnectionProvider.php',
+    'League\\Flysystem\\PhpseclibV3\\ConnectivityChecker' => $vendorDir . '/league/flysystem-sftp-v3/ConnectivityChecker.php',
+    'League\\Flysystem\\PhpseclibV3\\FixatedConnectivityChecker' => $vendorDir . '/league/flysystem-sftp-v3/FixatedConnectivityChecker.php',
+    'League\\Flysystem\\PhpseclibV3\\SftpAdapter' => $vendorDir . '/league/flysystem-sftp-v3/SftpAdapter.php',
+    'League\\Flysystem\\PhpseclibV3\\SftpConnectionProvider' => $vendorDir . '/league/flysystem-sftp-v3/SftpConnectionProvider.php',
+    'League\\Flysystem\\PhpseclibV3\\SimpleConnectivityChecker' => $vendorDir . '/league/flysystem-sftp-v3/SimpleConnectivityChecker.php',
+    'League\\Flysystem\\PhpseclibV3\\StubSftpConnectionProvider' => $vendorDir . '/league/flysystem-sftp-v3/StubSftpConnectionProvider.php',
+    'League\\Flysystem\\PhpseclibV3\\UnableToAuthenticate' => $vendorDir . '/league/flysystem-sftp-v3/UnableToAuthenticate.php',
+    'League\\Flysystem\\PhpseclibV3\\UnableToConnectToSftpHost' => $vendorDir . '/league/flysystem-sftp-v3/UnableToConnectToSftpHost.php',
+    'League\\Flysystem\\PhpseclibV3\\UnableToEstablishAuthenticityOfHost' => $vendorDir . '/league/flysystem-sftp-v3/UnableToEstablishAuthenticityOfHost.php',
+    'League\\Flysystem\\PhpseclibV3\\UnableToLoadPrivateKey' => $vendorDir . '/league/flysystem-sftp-v3/UnableToLoadPrivateKey.php',
     'League\\Flysystem\\PortableVisibilityGuard' => $vendorDir . '/league/flysystem/src/PortableVisibilityGuard.php',
     'League\\Flysystem\\ProxyArrayAccessToProperties' => $vendorDir . '/league/flysystem/src/ProxyArrayAccessToProperties.php',
     'League\\Flysystem\\ResolveIdenticalPathConflict' => $vendorDir . '/league/flysystem/src/ResolveIdenticalPathConflict.php',

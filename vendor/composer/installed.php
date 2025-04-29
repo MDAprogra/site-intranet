@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '60bb902317536383414f074008a872044aa34152',
+        'reference' => 'dca08759f06b54c66881b21d15d754b6102998a6',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(
@@ -399,7 +399,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '60bb902317536383414f074008a872044aa34152',
+            'reference' => 'dca08759f06b54c66881b21d15d754b6102998a6',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(
@@ -503,6 +503,15 @@
             'reference' => 'e0e8d52ce4b2ed154148453d321e97c8e931bd27',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/flysystem-local',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'league/flysystem-sftp-v3' => array(
+            'pretty_version' => '3.29.0',
+            'version' => '3.29.0.0',
+            'reference' => 'ce9b209e2fbe33122c755ffc18eb4d5bd256f252',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../league/flysystem-sftp-v3',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

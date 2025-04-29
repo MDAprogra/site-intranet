@@ -1,3 +1,4 @@
+@php use Carbon\Carbon; @endphp
 <x-app-layout>
     <div class="container mx-auto p-6 max-w-7xl rounded-xl">
         <div class="flex justify-between items-center mb-8">
@@ -13,26 +14,33 @@
             </a>
         </div>
 
-        <div class="bg-gray-700 rounded-xl shadow-md p-8 mb-8">
-            <h2 class="text-xl font-semibold text-white mb-4">Ajouter des fichiers</h2>
+        <div class="bg-gray-800 rounded-2xl shadow-lg p-10 mb-10 border border-gray-700">
+            <h2 class="text-2xl font-bold text-white mb-6">Ajouter des fichiers</h2>
 
             <form action="{{ route('media.upload') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div id="dropzone"
                      onclick="document.getElementById('media').click()"
-                     class="border-2 border-dashed border-indigo-300 rounded-lg p-10 text-center cursor-pointer hover:bg-gray-600 transition duration-300">
-                    <svg class="mx-auto h-16 w-16 text-indigo-400" fill="none" viewBox="0 0 24 24"
-                         stroke="currentColor">
+                     class="border-2 border-dashed border-indigo-400 rounded-2xl p-12 text-center cursor-pointer hover:bg-gray-700 transition-colors duration-300">
+                    <svg class="mx-auto h-20 w-20 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L4 8m4-4v12"></path>
                     </svg>
-                    <p class="mt-4 text-gray-300">Glisser-déposer les fichiers ici ou cliquer pour sélectionner</p>
-                    <p class="text-sm text-gray-400 mt-2">Images et vidéos acceptées</p>
+                    <p class="mt-6 text-gray-200 text-lg">Glisser-déposer les fichiers ici ou <span class="underline text-indigo-400">cliquer pour sélectionner</span></p>
+                    <p class="text-sm text-gray-400 mt-2">Formats acceptés : images et vidéos</p>
                     <input type="file" name="media[]" multiple id="media" class="hidden" accept="image/*,video/*">
                 </div>
-                <div id="preview" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4 mt-6"></div>
+
+                <label for="display_date" class="block text-sm font-medium text-gray-300 mt-8 mb-2">
+                    Date d'affichage <span class="text-gray-500">(optionnelle)</span>
+                </label>
+                <input type="date" name="display_date" id="display_date"
+                       class="w-full bg-gray-900 text-white border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200 shadow-sm">
+
+                <div id="preview" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mt-8"></div>
+
                 <button type="submit"
-                        class="mt-6 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center mx-auto">
+                        class="mt-8 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center mx-auto shadow-md hover:shadow-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
                          stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -43,7 +51,8 @@
             </form>
         </div>
 
-        @foreach (['success' => 'green', 'info' => 'blue'] as $type => $color)
+
+    @foreach (['success' => 'green', 'info' => 'blue'] as $type => $color)
             @if (session($type))
                 <div class="mt-4 bg-{{ $color }}-600 text-white p-4 rounded-lg flex items-center mb-6">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
@@ -73,87 +82,67 @@
             </div>
         @endif
 
-        <div class="bg-gray-700 rounded-xl shadow-md p-8">
-            <h2 class="text-2xl font-semibold text-white mb-6">Médias Existants</h2>
+        <div class="bg-gray-800 rounded-2xl shadow-lg p-10">
+            <h2 class="text-2xl font-bold text-white mb-8">📁 Médias existants</h2>
 
-            <div id="media-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                @foreach($mediaFiles as $index => $file)
-                    <div class="relative bg-gray-600 rounded-xl shadow-md hover:shadow-lg transition duration-300 overflow-hidden group">
-                        <div class="aspect-w-16 aspect-h-9 overflow-hidden rounded-t-xl">
-                            @if($file->type === 'image')
-                                <img src="{{ asset('storage/' . $file->path) }}" alt="Image"
-                                     class="w-full h-48 object-cover">
-                            @elseif($file->type === 'video')
-                                <video src="{{ asset('storage/' . $file->path) }}" class="w-full h-48 object-cover"
-                                       controls></video>
-                            @endif
+            <div id="media-grid" class="space-y-14">
+                @foreach($groupedMedia as $date => $files)
+                    <section>
+                        <h3 class="text-xl font-semibold text-white border-b border-gray-700 pb-3 mb-8 flex items-center gap-2">
+                            📅 {{ $date === 'Sans date' ? 'Aucune date définie (affiché en permanence)' : \Carbon\Carbon::parse($date)->translatedFormat('l d F Y') }}
+                        </h3>
 
-                            <div class="absolute top-2 left-2 bg-indigo-600 text-white text-sm px-3 py-1 rounded-full">
-                                #{{ $file->order }}
-                            </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+                            @foreach($files as $file)
+                                <div class="relative bg-gray-900 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group">
+                                    <div class="aspect-w-16 aspect-h-9">
+                                        @if($file->type === 'image')
+                                            <img src="{{ asset('storage/' . $file->path) }}" alt="Image"
+                                                 class="w-full h-full object-cover rounded-t-2xl">
+                                        @elseif($file->type === 'video')
+                                            <video src="{{ asset('storage/' . $file->path) }}"
+                                                   class="w-full h-full object-cover rounded-t-2xl"
+                                                   controls></video>
+                                        @endif
 
-                            <form method="POST" action="{{ route('media.destroy', $file->id) }}"
-                                  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce média ?')"
-                                  class="absolute top-2 right-2">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit"
-                                        class="bg-red-500 hover:bg-red-600 text-white font-medium p-2 rounded-full transition duration-300 opacity-0 group-hover:opacity-100">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                         viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                                    </svg>
-                                </button>
-                            </form>
+                                        <div class="absolute top-3 left-3 bg-indigo-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
+                                            Ordre #{{ $file->order }}
+                                        </div>
+
+                                        <form method="POST" action="{{ route('media.destroy', $file->id) }}"
+                                              onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce média ?')"
+                                              class="absolute top-3 right-3">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                    class="bg-red-600 hover:bg-red-700 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition duration-300 shadow-md">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                                                     viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 4h6a1 1 0 011 1v1H8V5a1 1 0 011-1z"/>
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                    <div class="p-4 flex gap-2">
+                                        <a href="{{ route('media.moveUp', $file->id) }}"
+                                           class="flex-1 bg-gray-700 hover:bg-gray-600 text-white text-sm font-medium py-2 px-3 rounded-lg text-center transition">
+                                            ⬆️ Monter
+                                        </a>
+                                        <a href="{{ route('media.moveDown', $file->id) }}"
+                                           class="flex-1 bg-gray-700 hover:bg-gray-600 text-white text-sm font-medium py-2 px-3 rounded-lg text-center transition">
+                                            ⬇️ Descendre
+                                        </a>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
-                        <div class="p-4">
-                            <div class="flex justify-between items-center gap-2">
-                                <a href="{{ route('media.moveUp', $file->id) }}"
-                                   class="flex-1 bg-gray-600 hover:bg-gray-500 text-white font-medium py-2 px-2 rounded-lg transition duration-300 flex items-center justify-center">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12.7071 9.1716L11.2929 7.75739L7.05024 12L11.2929 16.2426L12.7071 14.8284L9.87869 12L12.7071 9.1716Z"
-                                              fill="#FFFFFF"/>
-                                        <path d="M15.5355 7.75739L16.9497 9.1716L14.1213 12L16.9497 14.8284L15.5355 16.2426L11.2929 12L15.5355 7.75739Z"
-                                              fill="#FFFFFF"/>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                              d="M1 5C1 2.79086 2.79086 1 5 1H19C21.2091 1 23 2.79086 23 5V19C23 21.2091 21.2091 23 19 23H5C2.79086 23 1 21.2091 1 19V5ZM5 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3Z"
-                                              fill="#FFFFFF"/>
-                                    </svg>
-                                    <span class="ml-1">Monter</span>
-                                </a>
-                                <a href="{{ route('media.moveDown', $file->id) }}"
-                                   class="flex-1 bg-gray-600 hover:bg-gray-500 text-white font-medium py-2 px-2 rounded-lg transition duration-300 flex items-center justify-center">
-                                    <span class="ml-1">Descendre</span>
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M8.46448 7.75739L7.05026 9.1716L9.87869 12L7.05029 14.8284L8.46451 16.2426L12.7071 12L8.46448 7.75739Z"
-                                              fill="#FFFFFF"/>
-                                        <path d="M11.2929 9.1716L12.7071 7.75739L16.9498 12L12.7071 16.2426L11.2929 14.8284L14.1213 12L11.2929 9.1716Z"
-                                              fill="#FFFFFF"/>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                              d="M23 5C23 2.79086 21.2091 1 19 1H5C2.79086 1 1 2.79086 1 5V19C1 21.2091 2.79086 23 5 23H19C21.2091 23 23 21.2091 23 19V5ZM19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
-                                              fill="#FFFFFF"/>
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    </section>
                 @endforeach
-
-                @if(count($mediaFiles) === 0)
-                    <div class="col-span-full text-center py-10 bg-gray-600 rounded-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none"
-                             viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                        </svg>
-                        <p class="mt-2 text-gray-500">Aucun média disponible</p>
-                    </div>
-                @endif
             </div>
         </div>
+
     </div>
     <script>
         const input = document.getElementById('media');
