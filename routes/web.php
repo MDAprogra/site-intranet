@@ -80,7 +80,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/indicateur-production', [ProductionController::class, 'IndicateurConsoPapier'])->name('conso-papier');
     Route::get('/BEPS',[BepsController::class, 'AfficherBeps'])->name('beps');
 
-    Route::get('/Logs',[LogController::class, 'bonsLivraison'])->name('logBL');
+    Route::get('/Logs',[LogController::class, 'bonsLivraison'])->name('log');
 
 
 });

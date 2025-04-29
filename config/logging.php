@@ -131,6 +131,11 @@ return [
             'path' => storage_path('logs/bons_livraison.log'),
             'level' => 'debug',
         ],
+        'contacts' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/contacts.log'),
+            'level' => 'debug',
+        ],
 
     ],
 

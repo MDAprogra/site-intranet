@@ -14,6 +14,6 @@ class LogController extends Controller
 
         $logs = array_reverse(file($path)); // Lignes inversées (les plus récentes en haut)
 
-        return view('BL_log', compact('logs'));
+        return view('Log', compact('logs'));
     }
 }

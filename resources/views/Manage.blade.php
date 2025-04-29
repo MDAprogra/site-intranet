@@ -1,4 +1,3 @@
-@php use Carbon\Carbon; @endphp
 <x-app-layout>
     <div class="container mx-auto p-6 max-w-7xl rounded-xl">
         <div class="flex justify-between items-center mb-8">

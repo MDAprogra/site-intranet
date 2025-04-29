@@ -55,8 +55,6 @@ class UpdateBL extends Command
         } catch (\Exception $e) {
             Log::channel('bons_livraison')->error('Une erreur inattendue est survenue : ' . $e->getMessage());
             return Command::FAILURE;
-        } finally {
-            Log::channel('bons_livraison')->info('Nettoyage ou toute autre tâche de post-exécution si nécessaire.');
         }
     }
 

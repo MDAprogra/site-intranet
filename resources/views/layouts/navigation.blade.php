@@ -18,6 +18,10 @@
                     <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
                     {{ __('Ecran Atelier') }}
                 </x-nav-link>
+                <x-nav-link :href="route('log')" :active="request()->routeIs('log')" class="text-gray-300 hover:text-white flex items-center">
+                    <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7a2 2 0 012-2m2 15h-1m-2 0h-2m-2 0H9m-2 0H7m-3 0h-1m0-10H2a2 2 0 01-2-2V6a2 2 0 012-2h2m-2 4h1m4 0h1m3 0h1m3 0h1m3 0h1m1-10V4a2 2 0 012-2h2a2 2 0 012 2v1m-2 10h-2M2 10h1m2-6h1m2 0h1m-6 4h1"></path></svg>
+                    {{ __('Logs') }}
+                </x-nav-link>
             @endif
         </div>
         <div class="flex items-center space-x-4">
