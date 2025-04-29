@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Tools\FormatTexte;
+use App\Tools\AccessoiresFTP;
 use Illuminate\Support\Facades\Storage;
 use Throwable;
 
@@ -16,6 +17,8 @@ class UpdateContact extends Command
 
     public function handle()
     {
+        $access_ftp = new AccessoiresFTP();
+
         $start = microtime(true);
         $channel = Log::channel('contacts');
         $channel->info('DEBUT -- exportation des contacts -- DEBUT');
@@ -24,12 +27,14 @@ class UpdateContact extends Command
             $contacts = $this->fetchContacts();
             $channel->info('Contacts récupérés : ' . count($contacts));
 
-            $filePath = '/mnt/partage_windows/Exp_Contacts.txt';
+            $filePath = 'Exp_Contacts.txt';
             $this->writeContactsToFile($contacts, $filePath);
 
             $channel->info('Fichier créé : ' . $filePath);
             try {
-                $this->SendToFTP();
+
+                $access_ftp->sendToFTP($filePath,$filePath);
+                //$this->SendToFTP();
                 $channel->info('Fichier envoyé sur le serveur FTP');
             } catch (\Exception $e) {
                 $channel->error('Erreur lors de l\'envoi du fichier sur le serveur FTP : ' . $e->getMessage());
