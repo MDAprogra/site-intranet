@@ -22,7 +22,7 @@ class AccessoiresFTP
             if (!$stream) {
                 throw new \RuntimeException("Impossible d'ouvrir le fichier : $localPath");
             }
-
+            // Assurez-vous que le disque SFTP est configuré dans config/filesystems.php
             Storage::disk('sftp')->put($remotePath, $stream);
             fclose($stream);
 
