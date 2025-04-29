@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\CreateUserController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LogController;
 
 
 Route::get('/', function () {
@@ -78,6 +79,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 
     Route::get('/indicateur-production', [ProductionController::class, 'IndicateurConsoPapier'])->name('conso-papier');
     Route::get('/BEPS',[BepsController::class, 'AfficherBeps'])->name('beps');
+
+    Route::get('/Logs',[LogController::class, 'bonsLivraison'])->name('logBL');
+
 
 });
 
