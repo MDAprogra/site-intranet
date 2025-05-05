@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use App\Tools\FormatTexte;
 use App\Tools\AccessoiresFTP;
 use Illuminate\Support\Facades\Storage;
+use RuntimeException;
 use Throwable;
 
 class UpdateContact extends Command
@@ -17,42 +18,30 @@ class UpdateContact extends Command
 
     public function handle()
     {
-        $access_ftp = new AccessoiresFTP();
-
         $start = microtime(true);
-        $channel = Log::channel('contacts');
-        $channel->info('DEBUT -- exportation des contacts -- DEBUT');
-
+        $channel_success = Log::channel('update_success');
+        $channel_errors = Log::channel('update_errors');
         try {
             $contacts = $this->fetchContacts();
-            $channel->info('Contacts récupérés : ' . count($contacts));
-
-            $filePath = 'Exp_Contacts.txt';
+            $filePath = '/mnt/partage_windows/Exp_Contacts.txt';
             $this->writeContactsToFile($contacts, $filePath);
-
-            $channel->info('Fichier créé : ' . $filePath);
             try {
-
-                $access_ftp->sendToFTP($filePath,$filePath);
-                //$this->SendToFTP();
-                $channel->info('Fichier envoyé sur le serveur FTP');
+                $access_ftp = new AccessoiresFTP();
+                $name = 'Exp_Contacts.txt';
+                $access_ftp->sendToFTP($name);
             } catch (\Exception $e) {
-                $channel->error('Erreur lors de l\'envoi du fichier sur le serveur FTP : ' . $e->getMessage());
+                $channel_errors->error('[Contacts] -> Erreur lors de l\'envoi du fichier sur le serveur FTP : ' . $e->getMessage());
                 return Command::FAILURE;
             }
 
             $duration = round(microtime(true) - $start, 2);
-            $channel->info("Durée d'exécution : {$duration} sec");
         } catch (Throwable $e) {
-            $channel->error('Erreur : ' . $e->getMessage());
-            $channel->debug($e->getTraceAsString());
+            $channel_errors->error('[Contacts] -> Erreur : ' . $e->getMessage());
             return Command::FAILURE;
         }
-        //prochaine execution
-
-
-        $channel->info('FIN -- Temps d\'exécution ' . round($duration, 2) . ' secondes' . ' / Prochaine exécution : ' . now()->addMinutes(5)->format('d/m/Y à H:i') . ' -- FIN');
+        $channel_success->info('BL Mise à jour avec succès (' . count($contacts) . ' articles) en ' . round($duration, 2) . ' secondes');
         return Command::SUCCESS;
+
     }
 
     private function fetchContacts(): array
@@ -60,26 +49,25 @@ class UpdateContact extends Command
         $formatter = new FormatTexte();
 
         $contacts = DB::connection('pgsql')->select("SELECT DISTINCT
-	frc.relcont_code AS relcont_code,
-	fc_references.fo_rep_code AS gest,
-	REPLACE(REPLACE(REPLACE(frc.relcont_adpro ,CHR( 13) , '##') ,CHR( 10) , '##') ,CHR( 9) , '     ')  AS relcont_adpro,
-	REPLACE(REPLACE(REPLACE(frc.relcont_adpro_codpost ,CHR( 13) , '') ,CHR( 10) , '') ,CHR( 9) , '     ')  AS relcont_adpro_codpost,
-	REPLACE(REPLACE(REPLACE(frc.relcont_adpro_ville ,CHR( 13) , '') ,CHR( 10) , '') ,CHR( 9) , '     ')  AS relcont_adpro_ville,
-	REPLACE(REPLACE(REPLACE(frc.relcont_adpro_tel ,CHR( 13) , '') ,CHR( 10) , '') ,CHR( 9) , '     ')  AS relcont_adpro_tel,
-	REPLACE(REPLACE(REPLACE(frc.relcont_adpro_pays ,CHR( 13) , '') ,CHR( 10) , '') ,CHR( 9) , '     ')  AS relcont_adpro_pays,
-	REPLACE(REPLACE(REPLACE(frc.relcont_adpro_email ,CHR( 13) , '') ,CHR( 10) , '') ,CHR( 9) , '     ')  AS relcont_adpro_email,
-	CASE WHEN ( frc.relcont_code_fonction =  'BAT')  THEN  1 ELSE  0 END  AS valid_bat,
+	frc.relcont_code AS Reference,
+	fc_references.fo_rep_code AS Gestionnaire,
+	REPLACE(REPLACE(REPLACE(frc.relcont_adpro ,CHR( 13) , '##') ,CHR( 10) , '##') ,CHR( 9) , '     ')  AS Adresse,
+	REPLACE(REPLACE(REPLACE(frc.relcont_adpro_codpost ,CHR( 13) , '') ,CHR( 10) , '') ,CHR( 9) , '     ')  AS CodePostal,
+	REPLACE(REPLACE(REPLACE(frc.relcont_adpro_ville ,CHR( 13) , '') ,CHR( 10) , '') ,CHR( 9) , '     ')  AS Ville,
+	REPLACE(REPLACE(REPLACE(frc.relcont_adpro_tel ,CHR( 13) , '') ,CHR( 10) , '') ,CHR( 9) , '     ')  AS LigneDirecte,
+	REPLACE(REPLACE(REPLACE(frc.relcont_adpro_pays ,CHR( 13) , '') ,CHR( 10) , '') ,CHR( 9) , '     ')  AS Pays,
+	REPLACE(REPLACE(REPLACE(frc.relcont_adpro_email ,CHR( 13) , '') ,CHR( 10) , '') ,CHR( 9) , '     ')  AS EmailPro,
+	CASE WHEN ( frc.relcont_code_fonction =  'BAT')  THEN  1 ELSE  0 END  AS ValidateurBAT,
 	CASE frc.relcont_code_fonction  WHEN  'ACH' THEN  'Acheteur' WHEN  'APP' THEN  'Approvisionneur' WHEN  'CPT' THEN  'Comptable' WHEN  'DAC' THEN  'Directeur des achats' WHEN  'DFI' THEN  'Directeur financier' WHEN  'DG' THEN  'Directeur général' WHEN  'DIN' THEN  'Directeur informatique' WHEN  'DLG' THEN  'Directeur logistique' WHEN  'DMA' THEN  'Directeur marketing' WHEN  'DPR' THEN  'Directeur de production' WHEN  'DRG' THEN  'Directeur régional' WHEN  'PDG' THEN  'PDG' WHEN  'RAQ' THEN  'Responsable qualité' ELSE  'A préciser' END  AS Fonction,
-	frc.relcont_date_crea AS date_creation,
-	CASE frc.relcont_civilite  WHEN  0 THEN  'Monsieur' WHEN  1 THEN  'Madame' WHEN  2 THEN  'Mademoiselle' ELSE  '' END  AS civilité,
-	frc.relcont_prenom AS relcont_prenom,
-	frc.relcont_nom AS relcont_nom,
-	frc.relcont_adpro_gsm AS relcont_adpro_gsm,
-	frc.relcont_date_maj AS relcont_date_maj,
-	fc_references.fo_date_crea AS fo_date_crea,
-	fc_references.fo_date_modif AS fo_date_modif,
-	frc.relcont_seq AS sequentiel,
-	frc.relcont_no_contact
+	frc.relcont_date_crea AS CreeeLe,
+	CASE frc.relcont_civilite  WHEN  0 THEN  'Monsieur' WHEN  1 THEN  'Madame' WHEN  2 THEN  'Mademoiselle' ELSE  '' END  AS Civilite,
+	frc.relcont_prenom AS Prenom,
+	frc.relcont_nom AS Nom,
+	frc.relcont_adpro_gsm AS PortablePro,
+	frc.relcont_seq AS IdG6,
+	frc.relcont_no_contact AS NoG6Contact,
+	to_char(current_timestamp, 'DD/MM/YYYY HH24:MI') as MiseAJour,
+    frc.relcont_seq AS Seq
 FROM
 	fc_references
 	INNER JOIN
@@ -93,9 +81,9 @@ WHERE
 	/*AND	frc.relcont_adpro_email <> ''*/
 	AND
 	(
-		frc.relcont_date_maj >= CURRENT_DATE - interval '1' day
-		OR	fc_references.fo_date_crea >= CURRENT_DATE - interval '1' day
-		OR	fc_references.fo_date_modif >= CURRENT_DATE - interval '1' day
+		frc.relcont_date_maj >= CURRENT_DATE
+		OR	fc_references.fo_date_crea >= CURRENT_DATE
+		OR	fc_references.fo_date_modif >= CURRENT_DATE
 	)
 	AND	fc_references.fo_reference <> '*'
 	AND	fc_references.fo_nom_1 <> ''
@@ -103,13 +91,15 @@ WHERE
 	AND	fc_references.fo_reference NOT IN ('ZZZZZZZZ', 'ZZZ')
 	AND	fc_references.fo_type_c_f_p IN ('C', 'P', 'F')
 );");
-
+        $funcIdYB = new FormatTexte();
         foreach ($contacts as $contact) {
             foreach ($contact as $key => $value) {
                 if (is_string($value)) {
                     $contact->$key = $formatter->clean_txt($value);
                 }
             }
+
+            $contact->gestionnaire = $funcIdYB->getIdYB($contact->gestionnaire);
         }
 
         return $contacts;
@@ -117,18 +107,17 @@ WHERE
 
     private function writeContactsToFile(array $contacts, string $filePath): void
     {
-        $channel = Log::channel('contacts');
 
         // Vérification du dossier
         $directory = dirname($filePath);
         if (!is_dir($directory) || !is_writable($directory)) {
-            throw new \RuntimeException("Le répertoire n'existe pas ou n'est pas accessible en écriture : $directory");
+            throw new RuntimeException("Le répertoire n'existe pas ou n'est pas accessible en écriture : $directory");
         }
 
         // Ouverture du fichier
         $file = fopen($filePath, 'w');
         if (!$file) {
-            throw new \RuntimeException("Impossible d'ouvrir le fichier en écriture : $filePath");
+            throw new RuntimeException("Impossible d'ouvrir le fichier en écriture : $filePath");
         }
 
         foreach ($contacts as $contact) {
@@ -137,15 +126,5 @@ WHERE
         }
 
         fclose($file);
-        $channel->info("Fichier écrit avec succès : $filePath");
-    }
-
-    private function SendToFTP(): void
-    {
-        try {
-            Storage::disk('sftp')->put('Imports_Automatiques/PHP/Exp_Contacts.txt', fopen('/mnt/partage_windows/Exp_Contacts.txt', 'r+'));
-        } catch (\Exception $e) {
-            throw $e; // Rethrow the exception to be caught in the handle method
-        }
     }
 }

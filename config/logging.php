@@ -126,17 +126,19 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
-        'bons_livraison' => [
-            'driver' => 'single',
-            'path' => storage_path('logs/bons_livraison.log'),
-            'level' => 'debug',
-        ],
-        'contacts' => [
-            'driver' => 'single',
-            'path' => storage_path('logs/contacts.log'),
-            'level' => 'debug',
-        ],
 
+        'update_errors' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/upd_errors.log'),
+            'level' => 'debug',
+            'days' => 7,
+        ]
+        ,'update_success' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/upd_succes.log'),
+            'level' => 'debug',
+            'days' => 2,
+        ],
     ],
 
 ];

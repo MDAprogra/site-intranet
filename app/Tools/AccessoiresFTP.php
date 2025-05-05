@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Storage;
 
 class AccessoiresFTP
 {
-    public function sendToFTP(string $remoteFileName_ftp, string $localFileName_linux): void
+    public function sendToFTP(string $File_name): void
     {
-        $localPath = '/mnt/partage_windows/' . $localFileName_linux;
-        $remotePath = 'Imports_Automatiques/PHP/' . $remoteFileName_ftp;
+        $localPath = '/mnt/partage_windows/' . $File_name;
+        $remotePath = 'Imports_Automatiques/PHP/' . $File_name;
 
         if (!file_exists($localPath)) {
             Log::error("Fichier local introuvable : $localPath");

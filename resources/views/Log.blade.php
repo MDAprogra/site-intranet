@@ -1,75 +1,45 @@
 <x-app-layout>
-    <div class="max-w-6xl mx-auto bg-gray-900 text-white p-6 rounded-xl shadow-lg space-y-10">
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Logs de l\'application') }}
+        </h2>
+    </x-slot>
 
-        {{-- Bons de Livraison --}}
-        <div>
-            <h1 class="text-2xl font-bold mb-4">🧾 Logs – Bons de Livraison</h1>
-            <div class="max-h-[35vh] overflow-y-auto divide-y divide-gray-700 rounded-lg border border-gray-700 bg-gray-800 p-4 shadow-inner scroll-smooth">
-                @forelse ($logs_BL as $line)
-                    @php
-                        $line = trim($line);
-                        $level = 'info';
-                        $icon = 'ℹ️';
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <h3 class="font-semibold text-lg mb-4">{{ __('Logs d\'erreurs') }}</h3>
+                    @if ($log_errors)
+                        <pre class="bg-gray-100 dark:bg-gray-700 rounded-md p-4 overflow-auto max-h-96">
+                            @foreach ($log_errors as $line)
+                                <div>{{ $line }}</div>
+                            @endforeach
+                        </pre>
+                        @if (count($log_errors) === 0)
+                            <p class="text-gray-500 dark:text-gray-400">{{ __('Aucune erreur enregistrée.') }}</p>
+                        @endif
+                    @else
+                        <p class="text-red-500">{{ __('Fichier de log d\'erreurs introuvable ou vide.') }}</p>
+                    @endif
+                </div>
 
-                        if (str_contains($line, 'ERROR') || str_contains($line, 'Erreur')) {
-                            $level = 'error';
-                            $icon = '❌';
-                        } elseif (str_contains($line, 'WARN') || str_contains($line, 'Attention')) {
-                            $level = 'warning';
-                            $icon = '⚠️';
-                        } elseif (str_contains($line, 'SUCCESS') || str_contains($line, 'succès')) {
-                            $level = 'success';
-                            $icon = '✅';
-                        }
-                    @endphp
-
-                    <div class="@if($level === 'error') text-red-400
-                                @elseif($level === 'warning') text-yellow-300
-                                @elseif($level === 'success') text-green-400
-                                @else text-white @endif py-2">
-                        <span class="mr-2">{{ $icon }}</span>
-                        <span>{{ $line }}</span>
-                    </div>
-                @empty
-                    <p class="text-center text-gray-400">Aucune ligne de log pour les bons de livraison.</p>
-                @endforelse
+                <div class="p-6 text-gray-900 dark:text-gray-100 border-t dark:border-gray-700">
+                    <h3 class="font-semibold text-lg mb-4">{{ __('Logs de succès') }}</h3>
+                    @if ($log_succes)
+                        <pre class="bg-gray-100 dark:bg-gray-700 rounded-md p-4 overflow-auto max-h-96">
+                            @foreach ($log_succes as $line)
+                                <div>{{ $line }}</div>
+                            @endforeach
+                        </pre>
+                        @if (count($log_succes) === 0)
+                            <p class="text-gray-500 dark:text-gray-400">{{ __('Aucun succès enregistré.') }}</p>
+                        @endif
+                    @else
+                        <p class="text-red-500">{{ __('Fichier de log de succès introuvable.') }}</p>
+                    @endif
+                </div>
             </div>
         </div>
-
-        {{-- Contacts --}}
-        <div>
-            <h1 class="text-2xl font-bold mb-4">📇 Logs – Contacts</h1>
-            <div class="max-h-[35vh] overflow-y-auto divide-y divide-gray-700 rounded-lg border border-gray-700 bg-gray-800 p-4 shadow-inner scroll-smooth">
-                @forelse ($logs_Contact as $line)
-                    @php
-                        $line = trim($line);
-                        $level = 'info';
-                        $icon = 'ℹ️';
-
-                        if (str_contains($line, 'ERROR') || str_contains($line, 'Erreur')) {
-                            $level = 'error';
-                            $icon = '❌';
-                        } elseif (str_contains($line, 'WARN') || str_contains($line, 'Attention')) {
-                            $level = 'warning';
-                            $icon = '⚠️';
-                        } elseif (str_contains($line, 'SUCCESS') || str_contains($line, 'succès')) {
-                            $level = 'success';
-                            $icon = '✅';
-                        }
-                    @endphp
-
-                    <div class="@if($level === 'error') text-red-400
-                                @elseif($level === 'warning') text-yellow-300
-                                @elseif($level === 'success') text-green-400
-                                @else text-white @endif py-2">
-                        <span class="mr-2">{{ $icon }}</span>
-                        <span>{{ $line }}</span>
-                    </div>
-                @empty
-                    <p class="text-center text-gray-400">Aucune ligne de log pour les contacts.</p>
-                @endforelse
-            </div>
-        </div>
-
     </div>
 </x-app-layout>

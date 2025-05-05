@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Tools\AccessoiresFTP;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -15,53 +17,30 @@ class UpdateBL extends Command
     public function handle()
     {
         $start = microtime(true);
-        Log::channel('bons_livraison')->info('DEBUT -- exportation des bons de livraison... -- DEBUT');
+        $channel_success = Log::channel('update_success');
+        $channel_errors = Log::channel('update_errors');
+        $bonsLivraison = [];
 
         try {
             $bonsLivraison = $this->fetchBonsLivraison();
             $bonsLivraison = $this->enrichData($bonsLivraison);
-
-            if (empty($bonsLivraison)) {
-                Log::channel('bons_livraison')->info('Aucun bon de livraison trouvé.');
-                return Command::SUCCESS;
-            }
-
-            Log::channel('bons_livraison')->info('Nombre de bons de livraison récupérés : ' . count($bonsLivraison));
             $filePath = '/mnt/partage_windows/Exp_BL.txt';
-
             $this->exportToTxt($bonsLivraison, $filePath);
 
-            // Gestion des erreurs spécifiques pour l'envoi FTP
-            try {
-                $this->SendToFTP();
-            } catch (\Exception $ftpException) {
-                Log::channel('bons_livraison')->error('Erreur lors de l\'envoi au serveur FTP : ' . $ftpException->getMessage());
-                return Command::FAILURE;
-            }
-
-            $duration = microtime(true) - $start;
-            Log::channel('bons_livraison')->info('FIN -- Temps d\'exécution ' . round($duration, 2) . ' secondes' . ' / Prochaine exécution : ' . now()->addMinutes(30)->format('d/m/Y à H:i') . ' -- FIN');
-
-            return Command::SUCCESS;
-
-        } catch (\InvalidArgumentException $e) {
-            Log::channel('bons_livraison')->error('Erreur d\'argument invalide : ' . $e->getMessage());
-            return Command::FAILURE;
-
-        } catch (\RuntimeException $e) {
-            Log::channel('bons_livraison')->error('Erreur d\'exécution : ' . $e->getMessage());
-            return Command::FAILURE;
-
-        } catch (\Exception $e) {
-            Log::channel('bons_livraison')->error('Une erreur inattendue est survenue : ' . $e->getMessage());
-            return Command::FAILURE;
+            $access_ftp = new AccessoiresFTP();
+            $access_ftp->sendToFTP('Exp_BL.txt');
+        } catch (Exception $e) {
+            $channel_errors->error('[BL] -> Erreur lors du processus de mise à jour des BL : ' . $e->getMessage());
         }
+        $duration = microtime(true) - $start;
+        $channel_success->info('BL Mise à jour avec succès (' . count($bonsLivraison) . ' articles) en ' . round($duration, 2) . ' secondes');
     }
 
     //TODO : Ajouter données transports
     private function fetchBonsLivraison(): array
-        {
-            return DB::connection('pgsql')->select("
+    {
+        try {
+            $BL = DB::connection('pgsql')->select("
                 SELECT d.BO_NO                                  AS numero_bon_livraison, --OK
        Coalesce(d.BO_NO_DOSSIER, '')            AS numero_dossier, --OK
        d.BO_REF_DE_LIVRAISON                    AS reference_livraison, --OK
@@ -102,10 +81,15 @@ FROM ((((FF_LIVRAISON d LEFT JOIN FC_GESTION_CLIENT_SITE dCliSite
        ON dMvtStk.ST_SEQ_COMPT = dMvt.MVT_SEQ_ARTICLE) LEFT JOIN FS_TARIF_PF dMvtStkTar
       ON dMvtStk.ST_CODE_TARIF <> '' AND dMvtStkTar.PF_CODE = dMvtStk.ST_CODE_TARIF)
          LEFT JOIN FF_CODE_PAYS_PAR_CP dpays ON dpays.PTVA_CODE = d.BO_PAYS
-WHERE ((d.bo_date_reelle >= CURRENT_DATE - INTERVAL '1' DAY))
+WHERE ((d.bo_date_reelle >= CURRENT_DATE))
 ORDER BY BO_NO desc;
             ");
+        } catch (Exception $e) {
+            Log::channel('update_errors')->error('[BL] -> Erreur lors de la récupération des bons de livraison : ' . $e->getMessage());
+            throw $e; // Rethrow the exception to be caught in the handle method
         }
+        return $BL;
+    }
 
     private function enrichData(array $bons): array
     {
@@ -194,21 +178,5 @@ ORDER BY BO_NO desc;
             '4' => 'Cloture',
             default => 'Inconnu',
         };
-    }
-
-    private function SendToFTP(): void
-    {
-        Log::channel('bons_livraison')->info('Envoi du fichier vers le serveur SFTP...');
-        //Chemin Fichier à envoyer : /mnt/partage_windows/Exp_BL.txt
-        // Chemin de destination : /Imports_Automatiques/PHP
-        try {
-            Storage::disk('sftp')->put('Imports_Automatiques/PHP/Exp_BL.txt', fopen('/mnt/partage_windows/Exp_BL.txt', 'r+'));
-        } catch (\Exception $e) {
-            Log::channel('bons_livraison')->error('Erreur lors de l\'envoi du fichier : ' . $e->getMessage());
-            throw $e; // Rethrow the exception to be caught in the handle method
-        } finally {
-            Log::channel('bons_livraison')->info('Fichier envoyé vers le serveur SFTP avec succès.');
-            //TODO: Optionnel : Supprimer le fichier local après l'envoi
-        }
     }
 }

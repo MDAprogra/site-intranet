@@ -9,7 +9,8 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 
-Schedule::command('app:update-bl')->everyThirtyMinutes();
-Schedule::command('app:update-contact')->everyFiveMinutes();
+Schedule::command('app:update-bl')->everyFiveMinutes();
+Schedule::command('app:update-articles')->everyFiveMinutes();
 
-
+Schedule::command('app:update-contact')->everyTwoMinutes();
+Schedule::command('app:update-devis')->everyTwoMinutes();

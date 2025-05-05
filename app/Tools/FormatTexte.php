@@ -2,6 +2,8 @@
 
 namespace App\Tools;
 
+use Illuminate\Support\Facades\DB;
+
 class FormatTexte
 {
     public function clean_txt(string $v): string
@@ -18,5 +20,14 @@ class FormatTexte
 
         return $ss;
     }
+
+     public function getIdYB(string $v): string
+     {
+         $result = DB::connection('mysql2')->selectOne(
+             "SELECT IddYB FROM users WHERE REP_CODE = ? LIMIT 1", [$v]
+         );
+
+         return $result->IddYB ?? 'Administrateur';
+     }
 
 }
