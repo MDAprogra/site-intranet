@@ -145,14 +145,13 @@ ORDER BY
         ");
 
         $formatter = new FormatTexte();
-        foreach ($articles as $article) {
-            foreach ($article as $key => $value) {
+        foreach ($articles as &$article) { // Utilisation de la référence pour modifier l'objet directement
+            foreach ($article as &$value) { // Utilisation de la référence pour modifier la valeur directement
                 if (is_string($value)) {
-                    $article->$key = $formatter->clean_txt($value);
+                    $value = $formatter->clean_txt($value);
                 }
             }
-            $formatter->getIdYB($article->gest);
-            //$article->gest = $this->YBidd($article->gest);
+            $article->gest = $this->YBidd($article->gest);
         }
         return $articles;
     }

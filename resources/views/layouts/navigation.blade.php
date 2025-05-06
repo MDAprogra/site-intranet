@@ -5,23 +5,40 @@
             <span class="font-semibold text-white text-xl">Interfas</span>
         </a>
         <div class="hidden space-x-4 sm:flex">
-            <x-nav-link :href="route('indicateur')" :active="request()->routeIs('indicateur')" class="text-gray-300 hover:text-white flex items-center">
-                <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+            <x-nav-link :href="route('indicateur')" :active="request()->routeIs('indicateur')"
+                        class="text-gray-300 hover:text-white flex items-center">
+                <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                </svg>
                 {{ __('Indicateurs') }}
             </x-nav-link>
             @if(Auth::user()->role == 'admin')
-                <x-nav-link :href="route('utilisateur')" :active="request()->routeIs('utilisateur')" class="text-gray-300 hover:text-white flex items-center">
-                    <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 01-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <x-nav-link :href="route('utilisateur')" :active="request()->routeIs('utilisateur')"
+                            class="text-gray-300 hover:text-white flex items-center">
+                    <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 01-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
                     {{ __('Utilisateur') }}
                 </x-nav-link>
-                <x-nav-link :href="route('manage')" :active="request()->routeIs('manage')" class="text-gray-300 hover:text-white flex items-center">
-                    <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
+                <x-nav-link :href="route('manage')" :active="request()->routeIs('manage')"
+                            class="text-gray-300 hover:text-white flex items-center">
+                    <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M4 6h16M4 12h16M4 18h7"></path>
+                    </svg>
                     {{ __('Ecran Atelier') }}
                 </x-nav-link>
-                <x-nav-link :href="route('log')" :active="request()->routeIs('log')" class="text-gray-300 hover:text-white flex items-center">
-                    <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7a2 2 0 012-2m2 15h-1m-2 0h-2m-2 0H9m-2 0H7m-3 0h-1m0-10H2a2 2 0 01-2-2V6a2 2 0 012-2h2m-2 4h1m4 0h1m3 0h1m3 0h1m3 0h1m1-10V4a2 2 0 012-2h2a2 2 0 012 2v1m-2 10h-2M2 10h1m2-6h1m2 0h1m-6 4h1"></path></svg>
+                <x-nav-link :href="route('log')" :active="request()->routeIs('log')"
+                            class="text-gray-300 hover:text-white flex items-center">
+                    <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M9 5h6M9 3h6a2 2 0 012 2v1H7V5a2 2 0 012-2zm3 8h4m-4 4h4m-8-4h.01M8 15h.01M5 7h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2z"/>
+                    </svg>
                     {{ __('Logs') }}
                 </x-nav-link>
+
             @endif
         </div>
         <div class="flex items-center space-x-4">
@@ -29,10 +46,17 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-300 hover:text-white focus:outline-none transition ease-in-out duration-150">
-                            <svg class="h-6 w-6 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                            <svg class="h-6 w-6 mr-1 text-gray-400" fill="none" stroke="currentColor"
+                                 viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
                             <div>{{ Auth::user()->name }}</div>
-                            <svg class="fill-current h-4 w-4 ms-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            <svg class="fill-current h-4 w-4 ms-1" xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                      clip-rule="evenodd"/>
                             </svg>
                         </button>
                     </x-slot>
@@ -42,34 +66,51 @@
                         </x-dropdown-link>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();" class="text-gray-900 hover:bg-gray-100">
+                            <x-dropdown-link :href="route('logout')"
+                                             onclick="event.preventDefault(); this.closest('form').submit();"
+                                             class="text-gray-900 hover:bg-gray-100">
                                 {{ __('Se déconnecter') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
                 </x-dropdown>
             </div>
-            <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out sm:hidden">
+            <button @click="open = ! open"
+                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out sm:hidden">
                 <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                    <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round"
+                          stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round"
+                          stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
         </div>
     </div>
     <div :class="{'block': open, 'hidden': ! open}" class="sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('indicateur')" :active="request()->routeIs('indicateur')" class="text-gray-300 hover:text-white flex items-center">
-                <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+            <x-responsive-nav-link :href="route('indicateur')" :active="request()->routeIs('indicateur')"
+                                   class="text-gray-300 hover:text-white flex items-center">
+                <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                </svg>
                 {{ __('Indicateurs') }}
             </x-responsive-nav-link>
             @if(Auth::user()->role == 'admin')
-                <x-responsive-nav-link :href="route('utilisateur')" :active="request()->routeIs('utilisateur')" class="text-gray-300 hover:text-white flex items-center">
-                    <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 01-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <x-responsive-nav-link :href="route('utilisateur')" :active="request()->routeIs('utilisateur')"
+                                       class="text-gray-300 hover:text-white flex items-center">
+                    <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 01-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
                     {{ __('Utilisateur') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('manage')" :active="request()->routeIs('manage')" class="text-gray-300 hover:text-white flex items-center">
-                    <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
+                <x-responsive-nav-link :href="route('manage')" :active="request()->routeIs('manage')"
+                                       class="text-gray-300 hover:text-white flex items-center">
+                    <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M4 6h16M4 12h16M4 18h7"></path>
+                    </svg>
                     {{ __('Ecran Atelier') }}
                 </x-responsive-nav-link>
             @endif
@@ -85,7 +126,9 @@
                 </x-responsive-nav-link>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();" class="text-gray-300 hover:text-white">
+                    <x-responsive-nav-link :href="route('logout')"
+                                           onclick="event.preventDefault(); this.closest('form').submit();"
+                                           class="text-gray-300 hover:text-white">
                         {{ __('Se déconnecter') }}
                     </x-responsive-nav-link>
                 </form>

@@ -11,6 +11,11 @@ Artisan::command('inspire', function () {
 
 Schedule::command('app:update-bl')->everyFiveMinutes();
 Schedule::command('app:update-articles')->everyFiveMinutes();
+Schedule::command('app:update-contact-relance')->everyFiveMinutes();
 
 Schedule::command('app:update-contact')->everyTwoMinutes();
 Schedule::command('app:update-devis')->everyTwoMinutes();
+Schedule::command('app:update-societes')->everyTwoMinutes();
+
+//Toutes les jours à 5h
+Schedule::command('app:get-attente-matiere-premiere')->dailyAt('05:00');

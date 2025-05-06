@@ -137,7 +137,7 @@ return [
             'driver' => 'single',
             'path' => storage_path('logs/upd_succes.log'),
             'level' => 'debug',
-            'days' => 2,
+            'days' => 1,
         ],
     ],
 

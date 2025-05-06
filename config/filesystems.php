@@ -70,6 +70,10 @@ return [
             'timeout' => 30,
         ],
 
+        'partage_windows' => [
+            'driver' => 'local',
+            'root' => '/mnt/partage_windows',
+        ],
     ],
 
     /*
