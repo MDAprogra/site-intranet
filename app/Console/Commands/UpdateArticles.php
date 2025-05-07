@@ -55,7 +55,7 @@ class UpdateArticles extends Command
         //envoi ftp du fichier
         try {
             $access_ftp = new AccessoiresFTP();
-            $access_ftp->sendToFTP('Yellowbox/Exp_Articles.txt');
+            $access_ftp->sendToFTP('Exp_Articles.txt');
         } catch (\Exception $e) {
             $channel_errors->error('[Articles] -> Erreur lors de l\'envoi FTP : ' . $e->getMessage());
             return;
