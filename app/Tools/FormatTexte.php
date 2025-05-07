@@ -3,6 +3,9 @@
 namespace App\Tools;
 
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FormatTexte
 {
@@ -53,5 +56,32 @@ class FormatTexte
             fwrite($file, $line . PHP_EOL);
         }
         fclose($file);
+    }
+
+    public function createFileXLSX($FileName,$FilePath,$FileData)
+    {
+        $FullPath = $FilePath . $FileName;
+
+        $export = new class($FileData) implements FromArray, WithHeadings {
+            protected $data;
+
+            public function __construct(array $data)
+            {
+                $this->data = $data;
+            }
+
+            public function array(): array
+            {
+                return array_slice($this->data, 1); // Données (sans en-têtes)
+            }
+
+            public function headings(): array
+            {
+                return $this->data[0]; // En-têtes
+            }
+        };
+        Excel::store($export, $FileName, 'AMP');
+
+        return $FullPath;
     }
 }
