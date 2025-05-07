@@ -28,7 +28,6 @@ class UpdateContact extends Command
             $filePath = '/mnt/interfas/DEV/YB_linux/Yellowbox/';
             $fileName = 'Exp_Contacts.txt';
             $formatTxt->YBcreateFileTXT($fileName,$filePath,$contacts);
-            //$this->writeContactsToFile($contacts, $filePath);
             try {
                 $access_ftp = new AccessoiresFTP();
                 $name = 'Exp_Contacts.txt';
@@ -61,28 +60,5 @@ class UpdateContact extends Command
         }
 
         return $contacts;
-    }
-
-    private function writeContactsToFile(array $contacts, string $filePath): void
-    {
-
-        // Vérification du dossier
-        $directory = dirname($filePath);
-        if (!is_dir($directory) || !is_writable($directory)) {
-            throw new RuntimeException("Le répertoire n'existe pas ou n'est pas accessible en écriture : $directory");
-        }
-
-        // Ouverture du fichier
-        $file = fopen($filePath, 'w');
-        if (!$file) {
-            throw new RuntimeException("Impossible d'ouvrir le fichier en écriture : $filePath");
-        }
-
-        foreach ($contacts as $contact) {
-            $line = implode(';', (array)$contact) . "\n";
-            fwrite($file, $line);
-        }
-
-        fclose($file);
     }
 }
