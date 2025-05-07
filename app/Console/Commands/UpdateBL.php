@@ -86,40 +86,6 @@ class UpdateBL extends Command
         return $result->IddYB ?? 'Administrateur';
     }
 
-    private function exportToTxt(array $data, string $filePath): void
-    {
-        $handle = fopen($filePath, 'w+'); // Utilisez 'w+' pour la lecture/écriture et créer le fichier s'il n'existe pas
-
-        if ($handle === false) {
-            throw new \RuntimeException("Impossible d’ouvrir le fichier pour écriture : $filePath");
-        }
-
-        // Définir l'encodage pour l'écriture
-        stream_set_write_buffer($handle, 0); // Désactiver la mise en tampon pour une écriture immédiate
-        fwrite($handle, "\xEF\xBB\xBF"); // Ajouter le BOM UTF-8 (Byte Order Mark)
-
-        // Écriture de l’en-tête
-        $firstRow = (array)$data[0];
-        $header = implode(';', array_keys($firstRow));
-        fwrite($handle, $header . PHP_EOL);
-
-        // Écriture des lignes de données
-        foreach ($data as $row) {
-            $cleanRow = array_map(function ($value) {
-                if (!is_scalar($value)) {
-                    return '';
-                }
-                $value = str_replace(["\r", "\n", '"', ';'], ' ', (string)$value);
-                return trim($value);
-            }, (array)$row);
-
-            $line = implode(';', $cleanRow);
-            fwrite($handle, $line . PHP_EOL);
-        }
-
-        fclose($handle);
-    }
-
     private function convertGenreLivraison(string $genre): string
     {
         return match ($genre) {
