@@ -69,13 +69,4 @@ class UpdateSociete extends Command
         }
         return $societes;
     }
-
-    private function YBidd(string $repCode): string
-    {
-        $result = DB::connection('mysql2')->selectOne(
-            "SELECT IddYB FROM users WHERE REP_CODE = ? LIMIT 1", [$repCode]
-        );
-
-        return $result->IddYB ?? 'Administrateur';
-    }
 }
