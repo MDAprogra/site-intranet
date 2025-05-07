@@ -27,7 +27,7 @@ class UpdateContact extends Command
             $contacts = $this->fetchContacts();
             $filePath = '/mnt/interfas/DEV/YB_linux/Yellowbox/';
             $fileName = 'Exp_Contacts.txt';
-            $formatTxt->YBcreateFileTXT($filePath , $fileName,$contacts);
+            $formatTxt->YBcreateFileTXT($fileName,$filePath,$contacts);
             //$this->writeContactsToFile($contacts, $filePath);
             try {
                 $access_ftp = new AccessoiresFTP();
