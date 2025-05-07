@@ -37,6 +37,8 @@ class UpdateEncours extends Command
             return Command::FAILURE;
         }
         $this->info('Fichier encours Export.txt téléchargé avec succès.');
+
+        //TODO : Ajouter l'écriture dans la base de données mysql "interfas" qui sert pour Toucan
         $duration = microtime(true) - $start;
         $this->info('Durée d\'exécution : ' . round($duration, 2) . ' secondes');
         return Command::SUCCESS;
