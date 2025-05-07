@@ -59,7 +59,7 @@ class UpdateSociete extends Command
 
     private function fetchSociete()
     {
-        $sql = file_get_contents(database_path('sql/Societe.sql'));
+        $sql = file_get_contents(database_path('sql/Societes.sql'));
         $societes = DB::connection('pgsql')->select($sql);
 
         $formatter = new FormatTexte();
