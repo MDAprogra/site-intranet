@@ -26,7 +26,7 @@ class UpdateBL extends Command
             $bonsLivraison = $this->fetchBonsLivraison();
             $bonsLivraison = $this->enrichData($bonsLivraison);
 
-            $filePath = '/mnt/partage_windows/Yellowbox/';
+            $filePath = '/mnt/interfas/DEV/YB_linux/Yellowbox/';
             $fileName = 'Exp_BL.txt';
             $formatTxt = new FormatTexte();
 
