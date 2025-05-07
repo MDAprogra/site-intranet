@@ -65,29 +65,6 @@ class UpdateArticles extends Command
         $channel_success->info('Articles Mise à jour avec succès (' . count($articles) . ' articles) en ' . round($executionTime, 2) . ' secondes');
     }
 
-
-    private function writeFile($data)
-    {
-
-        // Vérification du dossier
-        $directory = dirname("/mnt/partage_windows/Yellowbox/Exp_Articles.txt");
-        if (!is_dir($directory) || !is_writable($directory)) {
-            throw new \RuntimeException("Le répertoire n'existe pas ou n'est pas accessible en écriture : $directory");
-        }
-
-        // Ouverture du fichier en mode écriture
-        $file = fopen("/mnt/partage_windows/Yellowbox/Exp_Articles.txt", 'w');
-        if (!$file) {
-            throw new \RuntimeException("Impossible d'ouvrir le fichier en écriture");
-        }
-        // Écriture des données dans le fichier
-        foreach ($data as $row) {
-            $line = implode(';', (array)$row) . "\n";
-            fwrite($file, $line);
-        }
-        fclose($file);
-    }
-
     private function getArticles()
     {
 
