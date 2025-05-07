@@ -35,8 +35,8 @@ class AccessoiresFTP
 
     public function getFTP($FilePathFTP, $FileNameRemoteFTP, $FilePathRemote,$FileNameRemote)
     {
-        $FullPathFTP = $FilePathFTP . $FileNameRemote;
-        $FullPathRemote = $FilePathRemote . $FileNameRemoteFTP;
+        $FullPathFTP = $FilePathFTP . $FileNameRemoteFTP;
+        $FullPathRemote = $FilePathRemote . $FileNameRemote;
 
         $stream = Storage::disk('sftp')->readStream($FullPathFTP);
 
