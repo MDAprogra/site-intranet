@@ -1,3 +1,5 @@
+-- TODO : Ajouter les données transports
+
 SELECT d.BO_NO                                  AS numero_bon_livraison, --OK
        Coalesce(d.BO_NO_DOSSIER, '')            AS numero_dossier, --OK
        d.BO_REF_DE_LIVRAISON                    AS reference_livraison, --OK
