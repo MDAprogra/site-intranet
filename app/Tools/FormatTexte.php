@@ -67,7 +67,7 @@ class FormatTexte
         fclose($file);
     }
 
-    public function createFileXLSX($FileName,$FilePath,$FileData)
+    public function createFileXLSX($FileName,$FilePath,$FileData,$diskName)
     {
         $FullPath = $FilePath . $FileName;
 
@@ -89,7 +89,7 @@ class FormatTexte
                 return $this->data[0]; // En-têtes
             }
         };
-        Excel::store($export, $FileName, 'AMP');
+        Excel::store($export, $FileName, $diskName);
 
         return $FullPath;
     }

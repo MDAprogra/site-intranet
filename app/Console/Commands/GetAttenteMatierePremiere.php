@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Tools\AccessoiresNotification;
+use App\Tools\FormatTexte;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -18,7 +19,6 @@ class GetAttenteMatierePremiere extends Command
 
     public function handle()
     {
-        $this->info('Début de la commande');
         $accessNotif = new AccessoiresNotification();
         try {
             // Récupérer les données
@@ -37,9 +37,19 @@ class GetAttenteMatierePremiere extends Command
             $data = array_merge([$headers], $rows);
 
             // Créer le fichier Excel
-            $filePath = $this->createExcel($data);
+            $date = date('Y-m-d');
+            //Si la date du jour est un Lundi on va chercher les données du Vendredi
+            if (date('N') == 1) {
+                $date = date('Y-m-d', strtotime('-3 days'));
+            } else {
+                $date = date('Y-m-d', strtotime('-1 day'));
+            }
 
-            $this->info("Fichier Excel créé : {$filePath}");
+
+            $formatTxt = new FormatTexte();
+            $fileName = 'Exp_AMP_' . $date . '.xlsx';
+            $filePath = '/mnt/interfas/DEV/YB_linux/AMP/' . $fileName;
+            $formatTxt->createFileXLSX($fileName,$filePath,$data,'AMP');
 
             // Archiver le fichier Excel J-1
             $this->archiveExcel();
@@ -67,15 +77,9 @@ class GetAttenteMatierePremiere extends Command
             $date = date('Y-m-d', strtotime('-1 day'));
         }
 
+        $sql = file_get_contents(database_path('sql/AMP.sql'));
         // Récupérer les données de la base de données
-        return DB::connection('pgsql')->select("SELECT OPRE_SAL, OPRE_POSTE, OPRE_DATE, 
-            to_char(OPRE_H_DEBUT, 'HH24:MI') as \"Heure départ\",
-            to_char(OPRE_H_FIN, 'HH24:MI')   as \"Heure fin\",
-            OPRE_DUREE, OPRE_TAUX_1, OPRE_TAUX_2, OPRE_QUANTITE, OPRE_CODE_OP, OPRE_LIBELLE_OPE
-            FROM FP_OPERA_REEL
-            WHERE OPRE_DOSSIER = ''
-            AND OPRE_DATE = ?
-            AND OPRE_LIBELLE_OPE = 'Attente Matière Première'", [$date]);
+        return DB::connection('pgsql')->select($sql, [$date]);
     }
 
     private function createExcel(array $data)
