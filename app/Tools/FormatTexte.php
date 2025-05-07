@@ -35,7 +35,7 @@ class FormatTexte
         // ouverture du fichier par le disque YellowBox
         $fullPath = $FilePath . $FileName;
 
-        dd($fullPath);
+        dump($fullPath);
 
         $file = fopen($fullPath, 'w+');
 
