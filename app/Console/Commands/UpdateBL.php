@@ -14,8 +14,8 @@ class UpdateBL extends Command
 {
     protected $signature = 'app:update-bl';
     protected $description = 'Mise à jour des BL de Yellowbox';
-    protected $filePath = '/mnt/interfas/DEV/YB_linux/Yellowbox/';
-    protected $fileName = 'Exp_BL.txt';
+    protected string $filePath = '/mnt/interfas/DEV/YB_linux/Yellowbox/';
+    protected string $fileName = 'Exp_BL.txt';
 
     public function handle()
     {
