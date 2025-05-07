@@ -12,4 +12,4 @@ SELECT OPRE_SAL,
 FROM FP_OPERA_REEL
 WHERE OPRE_DOSSIER = ''
   AND OPRE_DATE = ?
-  AND OPRE_LIBELLE_OPE = 'Attente Matière Première';
+  --AND OPRE_LIBELLE_OPE = 'Attente Matière Première';
