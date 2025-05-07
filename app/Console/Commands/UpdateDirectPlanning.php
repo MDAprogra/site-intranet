@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Tools\AccessoiresFTP;
 use App\Tools\FormatTexte;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -78,7 +79,11 @@ class UpdateDirectPlanning extends Command
             }
 
             fclose($outputFile);
-            $this->info('Traitement Excel OK -> Direct Planning: ' . now()->format('d/m/Y H:i:s'));
+
+            // Envoi du fichier sur le FTP
+            $access_ftp = new AccessoiresFTP();
+            $access_ftp->sendToFTP('Exp_DP.txt');
+
 
             return Command::SUCCESS;
 
