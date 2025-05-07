@@ -29,10 +29,7 @@ class UpdateBL extends Command
             $bonsLivraison = $this->fetchBonsLivraison();
             $bonsLivraison = $this->enrichData($bonsLivraison);
 
-
             $formatTxt = new FormatTexte();
-
-
             try {
                 $formatTxt->YBcreateFileTXT($this->fileName, $this->filePath, $bonsLivraison);
                 $this->info('[BL] -> Fichier TXT créé avec succès : ' . $this->filePath);
@@ -45,7 +42,7 @@ class UpdateBL extends Command
             //$this->exportToTxt($bonsLivraison, $filePath);
 
             $access_ftp = new AccessoiresFTP();
-            $access_ftp->sendToFTP('Yellowbox/Exp_BL.txt');
+            $access_ftp->sendToFTP('Exp_BL.txt');
         } catch (Exception $e) {
             $channel_errors->error('[BL] -> Erreur lors du processus de mise à jour des BL : ' . $e->getMessage());
         }
