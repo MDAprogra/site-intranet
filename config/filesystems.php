@@ -70,10 +70,29 @@ return [
             'timeout' => 30,
         ],
 
-        'partage_windows' => [
+        //Stockage des fichiers 'Attente Matière Première'
+        'AMP' => [
             'driver' => 'local',
-            'root' => '/mnt/partage_windows',
+            'root' => '/mnt/partage_windows/AMP',
         ],
+        'AMP_Archive' => [
+            'driver' => 'local',
+            'root' => '/mnt/partage_windows/AMP/archives',
+        ],
+
+        //Stockage des fichiers 'Relevé du personnel'
+        'RlvPer' => [
+            'driver' => 'local',
+            'root' => '/mnt/partage_windows/Releve_Personnel',
+        ],
+
+        //Stockage des fichiers d'importation dans Yellowbox
+        'Yellowbox' => [
+            'driver' => 'local',
+            'root' => '/mnt/partage_windows/Yellowbox',
+        ],
+
+
     ],
 
     /*

@@ -21,13 +21,42 @@ class FormatTexte
         return $ss;
     }
 
-     public function getIdYB(string $v): string
-     {
-         $result = DB::connection('mysql2')->selectOne(
-             "SELECT IddYB FROM users WHERE REP_CODE = ? LIMIT 1", [$v]
-         );
+    public function getIdYB(string $v): string
+    {
+        $result = DB::connection('mysql2')->selectOne(
+            "SELECT IddYB FROM users WHERE REP_CODE = ? LIMIT 1", [$v]
+        );
 
-         return $result->IddYB ?? 'Administrateur';
-     }
+        return $result->IddYB ?? 'Administrateur';
+    }
 
+    public function YBcreateFileTXT($FileName, $FilePath, $FileData)
+    {
+        try {
+            $file = fopen($FilePath . $FileName, 'w+');
+        }
+        catch (\Exception $e) {
+            throw new \Exception("Le fichier n'a pas pu être créé : " . $e->getMessage());
+        }
+
+        if ($file === false) {
+            throw new \Exception("Le fichier n'a pas pu être ouvert.");
+        }
+
+        fwrite($file, "\xEF\xBB\xBF"); // Ajouter le BOM UTF-8 (Byte Order Mark)
+
+        $enTete = (array)$FileData[0];
+        $header = implode(';', array_keys($enTete));
+        fwrite($file, $header . PHP_EOL);
+
+        foreach ($FileData as $row) {
+            $row = (array)$row;
+            $line = implode(';', array_map(function ($value) {
+                return '"' . str_replace('"', '""', $value) . '"';
+            }, $row));
+            fwrite($file, $line . PHP_EOL);
+        }
+
+        fclose($file);
+    }
 }

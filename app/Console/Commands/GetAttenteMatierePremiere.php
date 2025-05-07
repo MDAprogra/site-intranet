@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Tools\AccessoiresNotification;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -17,54 +19,69 @@ class GetAttenteMatierePremiere extends Command
     public function handle()
     {
         $this->info('Début de la commande');
-
+        $accessNotif = new AccessoiresNotification();
         try {
             // Récupérer les données
             $rawData = $this->getAttenteMatierePremiere();
 
+
             if (empty($rawData)) {
                 $this->error('Aucune donnée trouvée.');
-                $this->sendTeamsNotification('Erreur : Aucune donnée trouvée.');
+                $accessNotif->sendTeamsNotification_Success("AMP -> Aucune donnée trouvée.");
                 return;
             }
 
             // Transformer en tableau de tableaux avec en-têtes
-            $headers = array_keys((array) $rawData[0]);
-            $rows = array_map(fn ($item) => array_values((array) $item), $rawData);
+            $headers = array_keys((array)$rawData[0]);
+            $rows = array_map(fn($item) => array_values((array)$item), $rawData);
             $data = array_merge([$headers], $rows);
 
             // Créer le fichier Excel
             $filePath = $this->createExcel($data);
 
             $this->info("Fichier Excel créé : {$filePath}");
+
+            // Archiver le fichier Excel J-1
+            $this->archiveExcel();
+
             $this->info('Fin de la commande');
 
             // Envoi Notification à Webhook Teams
-            $this->sendTeamsNotification("Le fichier Excel a été créé avec succès : {$filePath}");
+            //$accessNotif->sendTeamsNotification_Success("Le fichier Excel a été créé avec succès : {$filePath}");
 
         } catch (\Exception $e) {
             $this->error("Erreur : " . $e->getMessage());
             // Envoi notification en cas d'erreur
-            $this->sendTeamsNotification("Erreur dans la commande : " . $e->getMessage());
+            $accessNotif->sendTeamsNotification_Error("Erreur dans la commande : " . $e->getMessage());
         }
     }
 
     private function getAttenteMatierePremiere()
     {
+        //Date du jour
+        $date = date('Y-m-d');
+        //Si la date du jour est un Lundi on va chercher les données du Vendredi
+        if (date('N') == 1) {
+            $date = date('Y-m-d', strtotime('-3 days'));
+        } else {
+            $date = date('Y-m-d', strtotime('-1 day'));
+        }
+
+        // Récupérer les données de la base de données
         return DB::connection('pgsql')->select("SELECT OPRE_SAL, OPRE_POSTE, OPRE_DATE, 
             to_char(OPRE_H_DEBUT, 'HH24:MI') as \"Heure départ\",
             to_char(OPRE_H_FIN, 'HH24:MI')   as \"Heure fin\",
             OPRE_DUREE, OPRE_TAUX_1, OPRE_TAUX_2, OPRE_QUANTITE, OPRE_CODE_OP, OPRE_LIBELLE_OPE
             FROM FP_OPERA_REEL
             WHERE OPRE_DOSSIER = ''
-            AND OPRE_DATE BETWEEN '01/02/2025' AND '18/02/2025'
-            AND OPRE_LIBELLE_OPE = 'Attente Matière Première'");
+            AND OPRE_DATE = ?
+            AND OPRE_LIBELLE_OPE = 'Attente Matière Première'", [$date]);
     }
 
     private function createExcel(array $data)
     {
-        $filename = 'Exp_AMP_' . date('Y-m-d') . '.xlsx';
-        $fullPath = '/mnt/partage_windows/' . $filename;
+        $filename = 'Exp_AMP_' . date('d-m-Y', strtotime('-1 day')) . '.xlsx';
+        $fullPath = '/mnt/partage_windows/AMP/' . $filename;
 
         $export = new class($data) implements FromArray, WithHeadings {
             protected $data;
@@ -85,38 +102,46 @@ class GetAttenteMatierePremiere extends Command
             }
         };
 
-        // Sauvegarde sur le disque 'partage_windows' (défini dans filesystems.php)
-        Excel::store($export, $filename, 'partage_windows');
+        Excel::store($export, $filename, 'AMP');
 
         return $fullPath;
     }
 
-    private function sendTeamsNotification(string $message)
+    private function archiveExcel()
     {
-        $webhookUrl = 'https://interfas.webhook.office.com/webhookb2/a9d50eda-2912-4146-81ff-ddd8c7e98609@0de0ef00-3714-4d44-985b-5663f8f938fc/IncomingWebhook/ac680532dc66449eae25381bb04fc907/e00807d5-cfcd-47c7-8422-f65bd6682389/V2s-xHSUl-kClwb1A3c22YrFWZ7UahDHiCpvGt7P_nSIM1';
+        $yesterday = date('d-m-Y', strtotime('-2 day'));
+        $filename = 'Exp_AMP_' . $yesterday . '.xlsx';
+        $sourcePath = '/mnt/partage_windows/AMP/' . $filename;
 
-        $payload = [
-            '@type' => 'MessageCard',
-            '@context' => 'http://schema.org/extensions',
-            'themeColor' => '00b159', // Couleur de la barre de titre (bleu Microsoft)
-            'summary' => 'Notification de l\'entreprise Interfas',
-            'sections' => [
-                [
-                    'activityTitle' => 'Notification de la société Interfas',  // Titre de la notification
-                    'activitySubtitle' => 'Une tâche a été exécutée avec succès.',
-                    'activityImage' => 'https://www.interfas.com/favicon.ico', // Icône ou image (ajustez avec le logo de votre société)
-                    'facts' => [
-                        [
-                            'name' => 'Message',
-                            'value' => $message, // Le message que vous souhaitez envoyer
-                        ],
-                    ],
-                ],
-            ],
-        ];
+        // Utilisation du disque AMP_Archive défini dans config/filesystems.php
+        $archiveDisk = Storage::disk('AMP_Archive');
+        $archivePath = $filename;
 
-        // Envoi de la notification à Teams via le Webhook
-        Http::post($webhookUrl, $payload);
+        if (!file_exists($sourcePath)) {
+            return;
+        }
+
+        try {
+            // Lecture du fichier source
+            $fileContents = @file_get_contents($sourcePath);
+            if ($fileContents === false) {
+                throw new \Exception("Échec de la lecture du fichier : {$sourcePath}");
+            }
+
+            // Écriture dans le dossier d’archives via le disque Laravel
+            if (!$archiveDisk->put($archivePath, $fileContents)) {
+                throw new \Exception("Échec de l’écriture dans le dossier d’archives : {$archiveDisk->path($archivePath)}");
+            }
+
+            // Suppression du fichier source
+            if (!@unlink($sourcePath)) {
+                throw new \Exception("Fichier archivé mais échec de la suppression du fichier source : {$sourcePath}");
+            }
+
+            $this->info("Fichier archivé avec succès : {$archiveDisk->path($archivePath)}");
+        } catch (\Throwable $e) {
+            $this->error("Erreur lors de l’archivage : " . $e->getMessage());
+        }
     }
 
 

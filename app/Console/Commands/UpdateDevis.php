@@ -75,13 +75,13 @@ class UpdateDevis extends Command
         $channel = Log::channel('devis');
 
         // Vérification du dossier
-        $directory = dirname("/mnt/partage_windows/Exp_Devis.txt");
+        $directory = dirname("/mnt/partage_windows/Yellowbox/Exp_Devis.txt");
         if (!is_dir($directory) || !is_writable($directory)) {
             throw new \RuntimeException("Le répertoire n'existe pas ou n'est pas accessible en écriture : $directory");
         }
 
         // Ouverture du fichier en mode écriture
-        $file = fopen("/mnt/partage_windows/Exp_Devis.txt", 'w');
+        $file = fopen("/mnt/partage_windows/Yellowbox/Exp_Devis.txt", 'w');
         if (!$file) {
             throw new \RuntimeException("Impossible d'ouvrir le fichier en écriture : Exp_Devis.txt");
         }

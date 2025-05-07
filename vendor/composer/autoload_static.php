@@ -634,6 +634,7 @@ class ComposerStaticInitd8f67b824a1bf31c8999ead558d9b485
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Tools\\AccessoiresFTP' => __DIR__ . '/../..' . '/app/Tools/AccessoiresFTP.php',
+        'App\\Tools\\AccessoiresNotification' => __DIR__ . '/../..' . '/app/Tools/AccessoiresNotification.php',
         'App\\Tools\\FormatTexte' => __DIR__ . '/../..' . '/app/Tools/FormatTexte.php',
         'App\\View\\Components\\AppLayout' => __DIR__ . '/../..' . '/app/View/Components/AppLayout.php',
         'App\\View\\Components\\AssistantCommercial' => __DIR__ . '/../..' . '/app/View/Components/AssistantCommercial.php',

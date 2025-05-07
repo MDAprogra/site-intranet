@@ -53,7 +53,7 @@ class UpdateArticles extends Command
         //envoi ftp du fichier
         try {
             $access_ftp = new AccessoiresFTP();
-            $access_ftp->sendToFTP('Exp_Articles.txt');
+            $access_ftp->sendToFTP('Yellowbox/Exp_Articles.txt');
         } catch (\Exception $e) {
             $channel_errors->error('[Articles] -> Erreur lors de l\'envoi FTP : ' . $e->getMessage());
             return;
@@ -68,13 +68,13 @@ class UpdateArticles extends Command
     {
 
         // Vérification du dossier
-        $directory = dirname("/mnt/partage_windows/Exp_Articles.txt");
+        $directory = dirname("/mnt/partage_windows/Yellowbox/Exp_Articles.txt");
         if (!is_dir($directory) || !is_writable($directory)) {
             throw new \RuntimeException("Le répertoire n'existe pas ou n'est pas accessible en écriture : $directory");
         }
 
         // Ouverture du fichier en mode écriture
-        $file = fopen("/mnt/partage_windows/Exp_Articles.txt", 'w');
+        $file = fopen("/mnt/partage_windows/Yellowbox/Exp_Articles.txt", 'w');
         if (!$file) {
             throw new \RuntimeException("Impossible d'ouvrir le fichier en écriture");
         }

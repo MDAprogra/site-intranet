@@ -45,6 +45,7 @@ return array(
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Tools\\AccessoiresFTP' => $baseDir . '/app/Tools/AccessoiresFTP.php',
+    'App\\Tools\\AccessoiresNotification' => $baseDir . '/app/Tools/AccessoiresNotification.php',
     'App\\Tools\\FormatTexte' => $baseDir . '/app/Tools/FormatTexte.php',
     'App\\View\\Components\\AppLayout' => $baseDir . '/app/View/Components/AppLayout.php',
     'App\\View\\Components\\AssistantCommercial' => $baseDir . '/app/View/Components/AssistantCommercial.php',

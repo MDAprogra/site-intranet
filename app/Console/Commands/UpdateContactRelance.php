@@ -46,27 +46,27 @@ class UpdateContactRelance extends Command
         }
         try {
             $access_ftp = new AccessoiresFTP();
-            $access_ftp->sendToFTP('Exp_ContactsRelances.txt');
+            $access_ftp->sendToFTP('Yellowbox/Exp_ContactsRelances.txt');
         } catch (\Exception $e) {
-            $channel_errors->error('[Articles] -> Erreur lors de l\'envoi FTP : ' . $e->getMessage());
+            $channel_errors->error('[Contact Relance] -> Erreur lors de l\'envoi FTP : ' . $e->getMessage());
             return;
         }
         $end = microtime(true);
         $executionTime = ($end - $start);
-        $channel_success->info('Contacts relances Mise à jour avec succès (' . count($contacts_relance) . ' articles) en ' . round($executionTime, 2) . ' secondes');
+        $channel_success->info('Contacts relances Mise à jour avec succès (' . count($contacts_relance) . ' Contact Relance) en ' . round($executionTime, 2) . ' secondes');
     }
 
     private function writeFile($data)
     {
 
         // Vérification du dossier
-        $directory = dirname("/mnt/partage_windows/Exp_ContactsRelances.txt");
+        $directory = dirname("/mnt/partage_windows/Yellowbox/Exp_ContactsRelances.txt");
         if (!is_dir($directory) || !is_writable($directory)) {
             throw new \RuntimeException("Le répertoire n'existe pas ou n'est pas accessible en écriture : $directory");
         }
 
         // Ouverture du fichier en mode écriture
-        $file = fopen("/mnt/partage_windows/Exp_ContactsRelances.txt", 'w');
+        $file = fopen("/mnt/partage_windows/Yellowbox/Exp_ContactsRelances.txt", 'w');
         if (!$file) {
             throw new \RuntimeException("Impossible d'ouvrir le fichier en écriture");
         }

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Tools\AccessoiresFTP;
+use App\Tools\FormatTexte;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -24,11 +25,26 @@ class UpdateBL extends Command
         try {
             $bonsLivraison = $this->fetchBonsLivraison();
             $bonsLivraison = $this->enrichData($bonsLivraison);
-            $filePath = '/mnt/partage_windows/Exp_BL.txt';
-            $this->exportToTxt($bonsLivraison, $filePath);
+
+            $filePath = '/mnt/partage_windows/Yellowbox/';
+            $fileName = 'Exp_BL.txt';
+            $formatTxt = new FormatTexte();
+
+
+            try {
+                $formatTxt->YBcreateFileTXT($fileName,$filePath,$bonsLivraison);
+                $this->info('[BL] -> Fichier TXT créé avec succès : ' . $filePath);
+            }
+            catch (Exception $e) {
+                $this->error('[BL] -> Erreur lors de la création du fichier TXT : ' . $e->getMessage());
+                return;
+            }
+
+
+            //$this->exportToTxt($bonsLivraison, $filePath);
 
             $access_ftp = new AccessoiresFTP();
-            $access_ftp->sendToFTP('Exp_BL.txt');
+            $access_ftp->sendToFTP('Yellowbox/Exp_BL.txt');
         } catch (Exception $e) {
             $channel_errors->error('[BL] -> Erreur lors du processus de mise à jour des BL : ' . $e->getMessage());
         }

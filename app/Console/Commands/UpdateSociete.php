@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Tools\AccessoiresFTP;
 use App\Tools\FormatTexte;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -33,19 +34,25 @@ class UpdateSociete extends Command
         $channel->info('DEBUT -- exportation des societes -- DEBUT');
 
         try {
-            // Étape 1 : Récupération des sociétés
             $this->info('Récupération des sociétés...');
             $societes = $this->fetchSociete();
             $this->info('Sociétés récupérées avec succès. Nombre : ' . count($societes));
             $channel->info('Récupération des sociétés terminée. Nombre : ' . count($societes));
 
-            // Étape 2 : Écriture dans le fichier
             $this->info('Écriture des sociétés dans le fichier...');
             $this->writeFile($societes);
             $this->info('Fichier créé avec succès.');
             $channel->info('Fichier des sociétés écrit avec succès.');
 
-            // Étape 3 : Affichage du temps d'exécution
+            try {
+                $access_ftp = new AccessoiresFTP();
+                $access_ftp->sendToFTP('Yellowbox/Exp_Societes.txt');
+            }
+            catch (\Throwable $e) {
+                $this->error('Erreur lors de l\'envoi du fichier sur le FTP : ' . $e->getMessage());
+            }
+
+
             $executionTime = round(microtime(true) - $start, 2);
             $this->info("Temps d'exécution : {$executionTime} secondes");
             $channel->info("FIN -- exportation des societes -- Durée : {$executionTime} secondes");
@@ -68,13 +75,13 @@ class UpdateSociete extends Command
         $channel = Log::channel('societes');
 
         // Vérification du dossier
-        $directory = dirname("/mnt/partage_windows/Exp_Societes.txt");
+        $directory = dirname("/mnt/partage_windows/Yellowbox/Exp_Societes.txt");
         if (!is_dir($directory) || !is_writable($directory)) {
             throw new \RuntimeException("Le répertoire n'existe pas ou n'est pas accessible en écriture : $directory");
         }
 
         // Ouverture du fichier en mode écriture
-        $file = fopen("/mnt/partage_windows/Exp_Societes.txt", 'w');
+        $file = fopen("/mnt/partage_windows/Yellowbox/Exp_Societes.txt", 'w');
         if (!$file) {
             throw new \RuntimeException("Impossible d'ouvrir le fichier en écriture : Exp_Societes.txt");
         }

@@ -53,7 +53,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-12.728 12.728M5.636 5.636l12.728 12.728"/>
                             </svg>
                         </span>
-                        <span id="tab-text">{{ __("Logs d'erreurs") }}</span>
+                        <span id="tab-text">{{ __("Erreurs") }}</span>
                     </h3>
                     <div class="flex items-center space-x-2">
                         <button class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-500 dark:text-gray-400"
@@ -148,12 +148,12 @@
             const tabText = document.getElementById('tab-text');
 
             if (tabName === 'errors') {
-                tabText.textContent = "{{ __('Logs d\'erreurs') }}";
+                tabText.textContent = "{{ __("Erreurs") }}";
                 tabIcon.innerHTML = `<svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-12.728 12.728M5.636 5.636l12.728 12.728"/>
                 </svg>`;
             } else {
-                tabText.textContent = "{{ __('Logs de succès') }}";
+                tabText.textContent = "{{ __('Succès') }}";
                 tabIcon.innerHTML = `<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
                 </svg>`;

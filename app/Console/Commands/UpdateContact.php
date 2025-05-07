@@ -23,11 +23,11 @@ class UpdateContact extends Command
         $channel_errors = Log::channel('update_errors');
         try {
             $contacts = $this->fetchContacts();
-            $filePath = '/mnt/partage_windows/Exp_Contacts.txt';
+            $filePath = '/mnt/partage_windows/Yellowbox/Exp_Contacts.txt';
             $this->writeContactsToFile($contacts, $filePath);
             try {
                 $access_ftp = new AccessoiresFTP();
-                $name = 'Exp_Contacts.txt';
+                $name = 'Yellowbox/Exp_Contacts.txt';
                 $access_ftp->sendToFTP($name);
             } catch (\Exception $e) {
                 $channel_errors->error('[Contacts] -> Erreur lors de l\'envoi du fichier sur le serveur FTP : ' . $e->getMessage());
