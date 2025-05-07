@@ -77,13 +77,13 @@ return [
         ],
         'AMP_Archive' => [
             'driver' => 'local',
-            'root' => '/mnt/partage_windows/AMP/archives',
+            'root' => '/mnt/interfas/DEV/YB_linux/AMP/archives',
         ],
 
         //Stockage des fichiers 'Relevé du personnel'
         'RlvPer' => [
             'driver' => 'local',
-            'root' => '/mnt/partage_windows/Releve_Personnel',
+            'root' => '/mnt/interfas/DEV/YB_linux/Releve_Personnel',
         ],
 
         //Stockage des fichiers d'importation dans Yellowbox

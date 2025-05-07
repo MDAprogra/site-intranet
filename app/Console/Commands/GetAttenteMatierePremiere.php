@@ -21,8 +21,15 @@ class GetAttenteMatierePremiere extends Command
     {
         $accessNotif = new AccessoiresNotification();
         try {
+            $date = date('Y-m-d');
+            //Si la date du jour est un Lundi on va chercher les données du Vendredi
+            if (date('N') == 1) {
+                $date = date('Y-m-d', strtotime('-3 days'));
+            } else {
+                $date = date('Y-m-d', strtotime('-1 day'));
+            }
             // Récupérer les données
-            $rawData = $this->getAttenteMatierePremiere();
+            $rawData = $this->getAttenteMatierePremiere($date);
 
 
             if (empty($rawData)) {
@@ -37,13 +44,7 @@ class GetAttenteMatierePremiere extends Command
             $data = array_merge([$headers], $rows);
 
             // Créer le fichier Excel
-            $date = date('Y-m-d');
-            //Si la date du jour est un Lundi on va chercher les données du Vendredi
-            if (date('N') == 1) {
-                $date = date('Y-m-d', strtotime('-3 days'));
-            } else {
-                $date = date('Y-m-d', strtotime('-1 day'));
-            }
+
 
 
             $formatTxt = new FormatTexte();
@@ -52,7 +53,7 @@ class GetAttenteMatierePremiere extends Command
             $formatTxt->createFileXLSX($fileName,$filePath,$data,'AMP');
 
             // Archiver le fichier Excel J-1
-            $this->archiveExcel();
+            $this->archiveExcel($date);
 
             $this->info('Fin de la commande');
 
@@ -66,56 +67,23 @@ class GetAttenteMatierePremiere extends Command
         }
     }
 
-    private function getAttenteMatierePremiere()
+    private function getAttenteMatierePremiere($date)
     {
-        //Date du jour
-        $date = date('Y-m-d');
-        //Si la date du jour est un Lundi on va chercher les données du Vendredi
-        if (date('N') == 1) {
-            $date = date('Y-m-d', strtotime('-3 days'));
-        } else {
-            $date = date('Y-m-d', strtotime('-1 day'));
-        }
-
         $sql = file_get_contents(database_path('sql/AMP.sql'));
         // Récupérer les données de la base de données
         return DB::connection('pgsql')->select($sql, [$date]);
     }
-
-    private function createExcel(array $data)
+    private function archiveExcel($date)
     {
-        $filename = 'Exp_AMP_' . date('d-m-Y', strtotime('-1 day')) . '.xlsx';
-        $fullPath = '/mnt/partage_windows/AMP/' . $filename;
+        //si $date est un Lundi ou un Mardi alors on fait -4 jours
+        if (date('N', strtotime($date)) == 1 || date('N', strtotime($date)) == 2) {
+            $dateArchive = date('Y-m-d', strtotime($date . ' -4 days'));
+        } else {
+            $dateArchive = date('Y-m-d', strtotime($date . ' -1 day'));
+        }
 
-        $export = new class($data) implements FromArray, WithHeadings {
-            protected $data;
-
-            public function __construct(array $data)
-            {
-                $this->data = $data;
-            }
-
-            public function array(): array
-            {
-                return array_slice($this->data, 1); // Données (sans en-têtes)
-            }
-
-            public function headings(): array
-            {
-                return $this->data[0]; // En-têtes
-            }
-        };
-
-        Excel::store($export, $filename, 'AMP');
-
-        return $fullPath;
-    }
-
-    private function archiveExcel()
-    {
-        $yesterday = date('d-m-Y', strtotime('-2 day'));
-        $filename = 'Exp_AMP_' . $yesterday . '.xlsx';
-        $sourcePath = '/mnt/partage_windows/AMP/' . $filename;
+        $filename = 'Exp_AMP_' . $dateArchive . '.xlsx';
+        $sourcePath = '/mnt/interfas/DEV/YB_linux/AMP/' . $filename;
 
         // Utilisation du disque AMP_Archive défini dans config/filesystems.php
         $archiveDisk = Storage::disk('AMP_Archive');
