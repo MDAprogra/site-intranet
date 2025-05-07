@@ -90,9 +90,18 @@ class UpdateDirectPlanning extends Command
 
     private function convertDurationToHours($duration): float
     {
-        // Implémentez la logique de conversion selon votre format
-        // Exemple simple pour HH:MM:SS
+        // Vérifie si c'est bien une chaîne avec des ":" dedans
+        if (!is_string($duration) || substr_count($duration, ':') < 2) {
+            return 0.0;
+        }
+
         $parts = explode(':', $duration);
-        return (float)$parts[0] + ((float)$parts[1] / 60) + ((float)$parts[2] / 3600);
+
+        // Sécurité supplémentaire au cas où explode donne moins de 3 éléments
+        $hours = isset($parts[0]) ? (float) $parts[0] : 0;
+        $minutes = isset($parts[1]) ? (float) $parts[1] : 0;
+        $seconds = isset($parts[2]) ? (float) $parts[2] : 0;
+
+        return $hours + ($minutes / 60) + ($seconds / 3600);
     }
 }
