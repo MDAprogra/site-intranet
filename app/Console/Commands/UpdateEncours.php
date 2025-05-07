@@ -31,7 +31,7 @@ class UpdateEncours extends Command
         try {
 
 
-            $access_ftp->getFTP('Imports_Automatiques/GAMSYS/', 'encours Export.txt', '/mnt/interfas/DEV/YB_linux/Yellowbox/');
+            $access_ftp->getFTP('Imports_Automatiques/GAMSYS/', 'encours Export.txt', '/mnt/interfas/DEV/YB_linux/Yellowbox/','encours.txt');
         } catch (\Throwable $e) {
             $this->error('Erreur lors de l\'exportation des encours : ' . $e->getMessage());
             return Command::FAILURE;
