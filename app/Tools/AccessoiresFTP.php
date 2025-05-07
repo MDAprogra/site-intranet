@@ -33,5 +33,27 @@ class AccessoiresFTP
         }
     }
 
+    public function getFTP($FilePathFTP, $FileNameRemoteFTP, $FilePathRemote)
+    {
+        $FullPathFTP = $FilePathFTP . $FileNameRemoteFTP;
+        $FullPathRemote = $FilePathRemote . $FileNameRemoteFTP;
 
+        $stream = Storage::disk('sftp')->readStream($FullPathFTP);
+
+        if ($stream === false) {
+            Log::error("Impossible d'ouvrir le fichier distant : $FullPathFTP");
+            return false;
+        }
+
+        $result = file_put_contents($FullPathRemote, stream_get_contents($stream));
+        fclose($stream);
+
+        if ($result !== false) {
+            Log::info("Fichier téléchargé avec succès : $FullPathRemote");
+            return $FullPathRemote;
+        } else {
+            Log::error("Erreur lors de l'enregistrement local du fichier : $FullPathRemote");
+            return false;
+        }
+    }
 }
