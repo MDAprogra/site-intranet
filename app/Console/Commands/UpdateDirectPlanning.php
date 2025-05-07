@@ -28,6 +28,7 @@ class UpdateDirectPlanning extends Command
      */
     public function handle()
     {
+        //TODO : Enlever les entêtes de colonnes lors de la creation du fichier texte
         $start = microtime(true);
 
         try {
