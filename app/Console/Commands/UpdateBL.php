@@ -27,7 +27,6 @@ class UpdateBL extends Command
 
         try {
             $bonsLivraison = $this->fetchBonsLivraison();
-            $bonsLivraison = $this->enrichData($bonsLivraison);
 
             $formatTxt = new FormatTexte();
             try {
@@ -59,7 +58,7 @@ class UpdateBL extends Command
             Log::channel('update_errors')->error('[BL] -> Erreur lors de la récupération des bons de livraison : ' . $e->getMessage());
             throw $e; // Rethrow the exception to be caught in the handle method
         }
-        return $BL;
+        return $this->enrichData($BL);
     }
 
     private function enrichData(array $bons): array
