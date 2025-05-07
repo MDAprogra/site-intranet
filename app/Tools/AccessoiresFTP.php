@@ -9,7 +9,7 @@ class AccessoiresFTP
 {
     public function sendToFTP(string $File_name): void
     {
-        $localPath = '/mnt/partage_windows/' . $File_name;
+        $localPath = '/mnt/interfas/DEV/YB_linux/Yellowbox/' . $File_name;
         $remotePath = 'Imports_Automatiques/PHP/' . $File_name;
 
         if (!file_exists($localPath)) {
