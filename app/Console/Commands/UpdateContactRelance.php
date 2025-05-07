@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Tools\AccessoiresFTP;
+use App\Tools\FormatTexte;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -39,14 +40,16 @@ class UpdateContactRelance extends Command
             return;
         }
         try {
-            $this->writeFile($contacts_relance);
+            $formatTxt = new FormatTexte();
+            $formatTxt->YBcreateFileTXT('Exp_ContactsRelances.txt', '/mnt/interfas/DEV/YB_linux/Yellowbox/', $contacts_relance);
+            //$this->writeFile($contacts_relance);
         } catch (\Exception $e) {
             $channel_errors->error('[Contact Relance] -> Erreur lors de l\'écriture du fichier : ' . $e->getMessage());
             return;
         }
         try {
             $access_ftp = new AccessoiresFTP();
-            $access_ftp->sendToFTP('Yellowbox/Exp_ContactsRelances.txt');
+            $access_ftp->sendToFTP('Exp_ContactsRelances.txt');
         } catch (\Exception $e) {
             $channel_errors->error('[Contact Relance] -> Erreur lors de l\'envoi FTP : ' . $e->getMessage());
             return;
@@ -80,27 +83,8 @@ class UpdateContactRelance extends Command
 
     private function getContactRelance()
     {
-        return DB::connection('pgsql')->select("
-        SELECT DISTINCT
-	frc.relcont_code AS Societe,
-	rf.fo_cpte_gene AS fo_cpte_gene,
-	( ( SELECT STRING_AGG( f1.relcont_adpro_email ,  ';')  AS Expr1
-FROM fc_relation_contact f1
-WHERE ( UPPER( f1.relcont_prenom_nom  ) LIKE '%RELANCE%' AND ( f1.relcont_code = frc.relcont_code ) )  )  )  AS mail
-FROM
-	fc_relation_contact frc,
-	fc_references rf
-WHERE
-	frc.relcont_code = rf.fo_reference
-	AND
-	(
-		UPPER( frc.relcont_prenom_nom  )  LIKE '%RELANCE%'
-		AND	frc.relcont_clifoupro = 'C'
-		AND	frc.relcont_adpro_email <> ''
-	)
-ORDER BY
-	Societe ASC;
-        ");
+        $sql = file_get_contents(database_path('sql/Contact-Relance.sql'));
+        return DB::connection('pgsql')->select($sql);
 
     }
 }
