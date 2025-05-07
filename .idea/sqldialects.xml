@@ -3,6 +3,7 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/database/sql/Articles.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/database/sql/BL.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/database/sql/Devis.sql" dialect="PostgreSQL" />
     <file url="PROJECT" dialect="PostgreSQL" />
   </component>
 </project>
