@@ -15,7 +15,7 @@ Schedule::command('app:update-contact-relance')->everyFiveMinutes();
 
 Schedule::command('app:update-contact')->everyTwoMinutes();
 Schedule::command('app:update-devis')->everyTwoMinutes();
-//Schedule::command('app:update-societes')->everyTwoMinutes();
+Schedule::command('app:update-societes')->everyTwoMinutes();
 
 
 Schedule::command('app:get-attente-matiere-premiere')->dailyAt('05:00');
