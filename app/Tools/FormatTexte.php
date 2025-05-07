@@ -19,9 +19,9 @@ class FormatTexte
         );
 
         // Conversion Unicode (UTF-8) vers ANSI (ISO-8859-1 ou Windows-1252 selon le besoin)
-        $ss = iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE', $vv);
+        //$ss = iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE', $vv);
 
-        return $ss;
+        return $vv;
     }
 
     public function getIdYB(string $v): string
