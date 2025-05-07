@@ -37,9 +37,6 @@ class UpdateBL extends Command
                 return;
             }
 
-
-            //$this->exportToTxt($bonsLivraison, $filePath);
-
             $access_ftp = new AccessoiresFTP();
             $access_ftp->sendToFTP('Exp_BL.txt');
         } catch (Exception $e) {
