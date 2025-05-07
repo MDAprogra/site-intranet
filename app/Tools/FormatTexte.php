@@ -43,8 +43,7 @@ class FormatTexte
         }
 
         fwrite($file, "\xEF\xBB\xBF"); // Ajouter le BOM UTF-8 (Byte Order Mark)
-        $enTete = (array)$FileData[0];
-        $header = implode(';', array_keys($enTete));
+
 
         foreach ($FileData as $row) {
             $row = (array)$row;
