@@ -73,7 +73,7 @@ return [
         //Stockage des fichiers 'Attente Matière Première'
         'AMP' => [
             'driver' => 'local',
-            'root' => '/mnt/partage_windows/AMP',
+            'root' => '/mnt/interfas/DEV/YB_linux/AMP',
         ],
         'AMP_Archive' => [
             'driver' => 'local',
@@ -89,7 +89,7 @@ return [
         //Stockage des fichiers d'importation dans Yellowbox
         'Yellowbox' => [
             'driver' => 'local',
-            'root' => '/mnt/partage_windows/Yellowbox',
+            'root' => '/mnt/interfas/DEV/YB_linux/Yellowbox',
         ],
 
 
