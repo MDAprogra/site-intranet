@@ -35,6 +35,15 @@ class FormatTexte
 
     public function YBcreateFileTXT($FileName, $FilePath, $FileData)
     {
+        //clean_txt des données
+        foreach ($FileData as $key => $row) {
+            foreach ($row as $k => $v) {
+                if (is_string($v)) {
+                    $FileData[$key]->$k = $this->clean_txt($v);
+                }
+            }
+        }
+
         // ouverture du fichier par le disque YellowBox
         $fullPath = $FilePath . $FileName;
 
