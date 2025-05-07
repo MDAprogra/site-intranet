@@ -70,9 +70,9 @@ class UpdateDirectPlanning extends Command
                 $line .= "\t" . $sheet->getCell('U' . $rowIndex)->getValue();
                 $line .= "\t" . $formatTxt->getIdYB($sheet->getCell('Y' . $rowIndex)->getValue());
 
-                //fwrite($outputFile, $line . PHP_EOL);
+                fwrite($outputFile, $line . PHP_EOL);
 
-                $formatTxt->YBcreateFileTXT('Exp_DP.txt', '/mnt/interfas/DEV/YB_linux/Yellowbox/', $line);
+                //$formatTxt->YBcreateFileTXT('Exp_DP.txt', '/mnt/interfas/DEV/YB_linux/Yellowbox/', $line);
                 $rowIndex++;
             }
 
